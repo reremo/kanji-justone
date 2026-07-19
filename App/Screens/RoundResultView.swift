@@ -24,6 +24,7 @@ struct RoundResultView: View {
 /// S15 最終結果（簡易版）
 struct FinalResultView: View {
     @Environment(GameSession.self) private var session
+    @Environment(AppState.self) private var app
 
     var body: some View {
         let engine = session.engine
@@ -36,7 +37,10 @@ struct FinalResultView: View {
             ScoreListView(engine: engine, crownForFirst: true)
         } actions: {
             ChalkButton(title: "もう一度あそぶ") {
-                session.restart()
+                try? app.startGame()
+            }
+            ChalkButton(title: "ホームへ戻る", style: .outline) {
+                app.endGame()
             }
         }
     }
