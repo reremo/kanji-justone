@@ -3062,7 +3062,7 @@
               "id": "W0Vpw",
               "name": "Note",
               "fill": "#C9D6C0",
-              "content": "タップして今回の参加者を選ぶ（2〜8人・おすすめは3〜6人）",
+              "content": "タップして今回の参加者を選ぶ（3〜8人・おすすめは3〜6人）",
               "fontFamily": "$font-ui",
               "fontSize": 13,
               "fontWeight": "normal"
