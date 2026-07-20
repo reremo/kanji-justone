@@ -16,30 +16,37 @@ struct RankingView: View {
                     .padding(.horizontal, 16)
                 List {
                     ForEach(Array(order.enumerated()), id: \.element.id) { index, fate in
-                        HStack(spacing: 12) {
+                        HStack(spacing: 14) {
                             Text("\(index + 1)")
-                                .font(.system(size: 14, weight: .bold, design: .monospaced))
+                                .font(.system(size: 15, weight: .bold, design: .rounded))
                                 .foregroundStyle(Theme.ink)
-                                .frame(width: 30, height: 30)
+                                .frame(width: 32, height: 32)
                                 .background(Circle().fill(index == 0 ? Theme.primary : Theme.primaryLight))
-                            KanjiTileView(char: fate.char, size: 44)
+                            KanjiTileView(char: fate.char, size: 48)
                             Spacer()
+                            Image(systemName: "line.3.horizontal")
+                                .font(.system(size: 18))
+                                .foregroundStyle(Theme.inkDisabled)
                         }
-                        .padding(.vertical, 4)
-                        .listRowBackground(
-                            RoundedRectangle(cornerRadius: 12)
+                        .padding(.horizontal, 16)
+                        .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
+                        // 背景はコンテンツ側にのみ（listRowBackgroundだと余白まで塗られてカード間が詰まる）
+                        .background(
+                            RoundedRectangle(cornerRadius: 14)
                                 .fill(Theme.card)
-                                .padding(.vertical, 3)
+                                .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(Theme.tileBorder, lineWidth: 1.5))
                         )
+                        .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 7, leading: 16, bottom: 7, trailing: 16))
                     }
+                    // システムのドラッグハンドルは使わず、カード長押しで並び替える
                     .onMove { from, to in
                         order.move(fromOffsets: from, toOffset: to)
                     }
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
-                .environment(\.editMode, .constant(.active))
             }
             .padding(.top, 16)
         } actions: {
