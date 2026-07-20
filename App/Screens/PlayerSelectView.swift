@@ -34,7 +34,7 @@ struct PlayerSelectView: View {
                         playerRow(player)
                             .listRowBackground(rowBackground(for: player))
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                     }
                     .onMove { from, to in
                         app.movePlayers(fromOffsets: from, toOffset: to)
@@ -94,15 +94,14 @@ struct PlayerSelectView: View {
         newName = ""
     }
 
-    /// 行の白カード背景（通常/編集で共通。ドラッグハンドル領域もカードに含める）
+    /// 行の背景（選択は薄い黄ハイライト。枠は常に細い縁で、隣接カードが詰まって見えないように）
     private func rowBackground(for player: Player) -> some View {
-        let selected = app.selectedPlayerIDs.contains(player.id)
+        let selected = app.selectedPlayerIDs.contains(player.id) && !editing
         return RoundedRectangle(cornerRadius: 14)
-            .fill(Theme.card)
+            .fill(selected ? Theme.primaryLight : Theme.card)
             .overlay(
                 RoundedRectangle(cornerRadius: 14)
-                    .strokeBorder(selected && !editing ? Theme.primary : Theme.tileBorder,
-                                  lineWidth: selected && !editing ? 2.5 : 1.5)
+                    .strokeBorder(Theme.tileBorder, lineWidth: 1.5)
             )
     }
 
@@ -145,8 +144,11 @@ struct PlayerSelectView: View {
         }
         .padding(.horizontal, 18)
         .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
-        // ドラッグ中のプレビューは listRowBackground を含まないため、コンテンツ側にも白カードを重ねる
-        .background(RoundedRectangle(cornerRadius: 14).fill(Theme.card))
+        // ドラッグ中のプレビューは listRowBackground を含まないため、コンテンツ側にも同じ背景を重ねる
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(selected && !editing ? Theme.primaryLight : Theme.card)
+        )
         .contentShape(Rectangle())
         .onTapGesture {
             guard !editing else { return }
