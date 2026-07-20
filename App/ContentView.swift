@@ -36,7 +36,7 @@ struct ContentView: View {
             .padding(.trailing, 14)
             .padding(.top, 6)
         }
-        .sheet(isPresented: $showPause) {
+        .fullScreenCover(isPresented: $showPause) {
             PauseMenuView()
         }
     }

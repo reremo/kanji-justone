@@ -1,59 +1,51 @@
 import SwiftUI
 
-/// プレイ中の一時中断メニュー（サウンド切替・中断・破棄）
+/// プレイ中の一時中断（全画面ポーズ・デザイン案C）
 struct PauseMenuView: View {
     @Environment(AppState.self) private var app
     @Environment(\.dismiss) private var dismiss
     @State private var confirmQuit = false
 
     var body: some View {
-        @Bindable var app = app
-        VStack(spacing: 12) {
-            HStack(spacing: 8) {
-                Image(systemName: "pause.circle.fill")
-                    .font(.system(size: 22))
-                    .foregroundStyle(Theme.primary)
-                Text("一時中断")
-                    .font(Theme.font(22))
-                    .foregroundStyle(Theme.chalk)
-            }
-            .padding(.top, 24)
-            .padding(.bottom, 4)
-
-            CardRow {
-                Image(systemName: "speaker.wave.2.fill")
-                    .font(.system(size: 17))
-                    .foregroundStyle(Theme.inkSecondary)
-                Text("サウンド")
-                    .font(Theme.font(16))
-                    .foregroundStyle(Theme.ink)
-                Spacer()
-                Toggle("", isOn: $app.soundOn)
-                    .labelsHidden()
-                    .tint(Theme.primaryDark)
-            }
-
-            menuRow(title: "中断してホームへ", subtitle: "あとで再開できます",
-                    icon: "house.fill", tint: Theme.ink) {
-                dismiss()
-                app.suspendGame()
-            }
-            menuRow(title: "ゲームをやめる", subtitle: "進行を破棄します（記録に残りません）",
-                    icon: "xmark.circle.fill", tint: Theme.error) {
-                confirmQuit = true
-            }
-
-            ChalkButton(title: "つづける") {
-                dismiss()
-            }
-            .padding(.top, 4)
+        VStack(spacing: 14) {
             Spacer()
+            Image(systemName: "pause.fill")
+                .font(.system(size: 44))
+                .foregroundStyle(Theme.primary)
+            Text("一時中断")
+                .font(Theme.font(30))
+                .foregroundStyle(Theme.chalk)
+            Button {
+                Haptics.light()
+                app.soundOn.toggle()
+            } label: {
+                Label("サウンド \(app.soundOn ? "ON" : "OFF")",
+                      systemImage: app.soundOn ? "speaker.wave.2.fill" : "speaker.slash.fill")
+                    .font(Theme.font(14))
+                    .foregroundStyle(app.soundOn ? Theme.chalk : Theme.chalkDim)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 18)
+                    .background(Capsule().strokeBorder(Theme.chalkFaded, lineWidth: 1.5))
+            }
+            .buttonStyle(.plain)
+            Spacer()
+            VStack(spacing: 12) {
+                ChalkButton(title: "つづける") {
+                    dismiss()
+                }
+                ChalkButton(title: "中断してホームへ", style: .light) {
+                    dismiss()
+                    app.suspendGame()
+                }
+                ChalkButton(title: "ゲームをやめる", style: .warnOutline) {
+                    confirmQuit = true
+                }
+            }
+            .padding(.horizontal, 32)
+            .padding(.bottom, 40)
         }
-        .padding(.horizontal, 16)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Theme.band.ignoresSafeArea())
-        .presentationDetents([.medium])
-        .presentationDragIndicator(.visible)
+        .background(Theme.boardDark.ignoresSafeArea())
         .alert("ゲームをやめますか？", isPresented: $confirmQuit) {
             Button("やめる", role: .destructive) {
                 dismiss()
@@ -63,34 +55,5 @@ struct PauseMenuView: View {
         } message: {
             Text("このゲームの進行は破棄され、記録にも残りません")
         }
-    }
-
-    private func menuRow(title: String, subtitle: String, icon: String, tint: Color,
-                         action: @escaping () -> Void) -> some View {
-        Button {
-            Haptics.light()
-            action()
-        } label: {
-            CardRow {
-                Image(systemName: icon)
-                    .font(.system(size: 18))
-                    .foregroundStyle(tint)
-                    .frame(width: 26)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(Theme.font(16))
-                        .foregroundStyle(tint)
-                    Text(subtitle)
-                        .font(Theme.font(12))
-                        .foregroundStyle(Theme.inkSecondary)
-                }
-                .padding(.vertical, 10)
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 14))
-                    .foregroundStyle(Theme.inkDisabled)
-            }
-        }
-        .buttonStyle(.plain)
     }
 }

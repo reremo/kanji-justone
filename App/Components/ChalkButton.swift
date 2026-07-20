@@ -2,6 +2,7 @@ import SwiftUI
 
 enum ChalkButtonStyle {
     case primary      // チョーク黄・ピル・押し込みエッジ
+    case light        // チョーク白の塗り・墨ラベル
     case outline      // チョーク白の枠線
     case warnOutline  // 黒板地上の警告ピンク枠線
 }
@@ -32,7 +33,7 @@ struct ChalkButton: View {
 
     private var foreground: Color {
         switch style {
-        case .primary: Theme.ink
+        case .primary, .light: Theme.ink
         case .outline: Theme.chalk
         case .warnOutline: Theme.chalkWarn
         }
@@ -44,6 +45,8 @@ struct ChalkButton: View {
             Capsule()
                 .fill(Theme.primary)
                 .shadow(color: Theme.primaryDark, radius: 0, x: 0, y: 4)
+        case .light:
+            Capsule().fill(Theme.chalk)
         case .outline:
             Capsule().strokeBorder(Theme.chalkFaded, lineWidth: 2)
         case .warnOutline:
