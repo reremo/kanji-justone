@@ -24,7 +24,7 @@ struct ShopView: View {
                         .foregroundStyle(Theme.chalkFaded)
                         .frame(height: 36)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
             }
         }
     }

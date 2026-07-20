@@ -96,7 +96,7 @@ struct TopicListView: View {
                         .font(.system(size: 16))
                         .foregroundStyle(Theme.error)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
             }
         }
         VStack(spacing: 8) {
@@ -134,6 +134,6 @@ struct TopicListView: View {
                 }
             }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressable)
     }
 }

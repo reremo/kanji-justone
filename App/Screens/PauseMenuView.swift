@@ -27,7 +27,7 @@ struct PauseMenuView: View {
                     .padding(.horizontal, 18)
                     .background(Capsule().strokeBorder(Theme.chalkFaded, lineWidth: 1.5))
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.pressable)
             Spacer()
             VStack(spacing: 12) {
                 ChalkButton(title: "つづける") {

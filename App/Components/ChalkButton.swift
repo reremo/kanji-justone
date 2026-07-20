@@ -26,7 +26,7 @@ struct ChalkButton: View {
                 .frame(height: style == .primary ? 56 : 52)
                 .background(backgroundShape)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressable)
         .disabled(!enabled)
         .opacity(enabled ? 1 : 0.4)
     }

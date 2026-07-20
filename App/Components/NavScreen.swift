@@ -28,7 +28,7 @@ struct NavScreen<Content: View, Actions: View>: View {
                         .font(.system(size: 20, weight: .semibold))
                         .foregroundStyle(Theme.chalk)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
                 Text(title)
                     .font(Theme.font(24))
                     .foregroundStyle(Theme.chalk)
