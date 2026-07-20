@@ -9,6 +9,7 @@ enum HomeRoute: Hashable {
 struct HomeView: View {
     @Environment(AppState.self) private var app
     @Binding var path: NavigationPath
+    @State private var showResumePrompt = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -29,8 +30,22 @@ struct HomeView: View {
             }
             Spacer()
             VStack(spacing: 12) {
-                ChalkButton(title: "ゲームを始める") {
-                    path.append(HomeRoute.players)
+                ChalkButton(title: app.suspendedSession != nil ? "ゲームを始める（中断中あり）" : "ゲームを始める") {
+                    if app.suspendedSession != nil {
+                        showResumePrompt = true
+                    } else {
+                        path.append(HomeRoute.players)
+                    }
+                }
+                .confirmationDialog("中断中のゲームがあります", isPresented: $showResumePrompt, titleVisibility: .visible) {
+                    Button("再開する") {
+                        app.resumeGame()
+                    }
+                    Button("新しく始める（中断中のゲームは破棄）", role: .destructive) {
+                        app.discardSuspendedGame()
+                        path.append(HomeRoute.players)
+                    }
+                    Button("キャンセル", role: .cancel) {}
                 }
                 navRow {
                     navButton("お題一覧", icon: "book") { path.append(HomeRoute.topicList) }
