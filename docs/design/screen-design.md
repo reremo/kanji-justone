@@ -1,4 +1,4 @@
-# 漢字ジャストワン（仮）画面構成・遷移フロー v1
+# 漢字の力画面構成・遷移フロー v1
 
 参照元: `docs/requirements/core-requirements.md`
 

@@ -22,10 +22,10 @@ struct HomeView: View {
                             .rotationEffect(.degrees([-8, 5, -4][index % 3]))
                     }
                 }
-                Text("漢字ジャストワン")
+                Text("漢字の力")
                     .font(Theme.font(36))
                     .foregroundStyle(Theme.chalk)
-                Text("かぶらない漢字で伝える パーティゲーム")
+                Text("漢字の力で ことばを伝えあう 推理パーティ")
                     .font(Theme.font(14))
                     .foregroundStyle(Theme.chalkFaded)
             }

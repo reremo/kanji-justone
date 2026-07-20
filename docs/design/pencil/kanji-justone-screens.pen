@@ -2320,7 +2320,7 @@
               "id": "QhkGx",
               "name": "App Title",
               "fill": "#FDFBF2",
-              "content": "漢字ジャストワン",
+              "content": "漢字の力",
               "fontFamily": "$font-ui",
               "fontSize": 36,
               "fontWeight": "normal"
@@ -2332,7 +2332,7 @@
               "fill": "#C9D6C0",
               "textGrowth": "fixed-width",
               "width": "fill_container",
-              "content": "かぶらない漢字で伝える パーティゲーム",
+              "content": "漢字の力で ことばを伝えあう 推理パーティ",
               "lineHeight": 1.6,
               "textAlign": "center",
               "fontFamily": "$font-ui",
@@ -7806,7 +7806,7 @@
                   "id": "SQL1D",
                   "name": "Version Label",
                   "fill": "#C9D6C0",
-                  "content": "漢字ジャストワン v1.0.0",
+                  "content": "漢字の力 v0.1.0（開発版）",
                   "fontFamily": "Inter",
                   "fontSize": 12,
                   "fontWeight": "normal"
