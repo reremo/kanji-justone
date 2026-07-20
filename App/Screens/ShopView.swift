@@ -5,25 +5,13 @@ struct ShopView: View {
     @Environment(AppState.self) private var app
 
     var body: some View {
-        @Bindable var app = app
-        NavScreen(title: "ショップ") {
-            if app.purchased {
-                purchasedBody
-            } else {
+        if app.purchased {
+            // 購入済みは操作帯なし（復元は未購入者向け機能のため出さない）
+            NavScreen(title: "ショップ") { purchasedBody }
+        } else {
+            NavScreen(title: "ショップ") {
                 storeBody
-            }
-        } actions: {
-            if app.purchased {
-                Button {
-                    Task { await app.store.restore() }
-                } label: {
-                    Text("購入を復元する")
-                        .font(Theme.font(14))
-                        .foregroundStyle(Theme.chalkFaded)
-                        .frame(height: 44)
-                }
-                .buttonStyle(.plain)
-            } else {
+            } actions: {
                 ChalkButton(title: "\(app.store.product?.displayPrice ?? "¥600") で 全部解除",
                             enabled: app.store.product != nil && !app.store.purchasing) {
                     Task { await app.store.purchase() }

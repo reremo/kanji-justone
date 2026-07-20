@@ -9414,47 +9414,6 @@
               ]
             }
           ]
-        },
-        {
-          "type": "frame",
-          "id": "o1dpGu",
-          "name": "Bottom Actions",
-          "width": "fill_container",
-          "fill": "#24483A",
-          "stroke": "#4E7561",
-          "strokeWidth": {
-            "top": 2
-          },
-          "layout": "vertical",
-          "padding": [
-            16,
-            16,
-            28,
-            16
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "frame",
-              "id": "R2GNw",
-              "name": "Restore",
-              "height": 44,
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "XG41S",
-                  "name": "Restore Label",
-                  "fill": "#C9D6C0",
-                  "content": "購入を復元する",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
-                }
-              ]
-            }
-          ]
         }
       ]
     }
