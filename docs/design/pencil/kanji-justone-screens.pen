@@ -2563,6 +2563,28 @@
               ]
             }
           ]
+        },
+        {
+          "type": "frame",
+          "id": "Q90yg",
+          "name": "AD Banner",
+          "width": "fill_container",
+          "height": 50,
+          "fill": "#D9D4C8",
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "rdq2j",
+              "name": "AD Label",
+              "fill": "#6B6B6B",
+              "content": "AD バナー 320×50（無料版のみ・フッター常設）",
+              "fontFamily": "$font-ui",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
         }
       ]
     },
@@ -4765,23 +4787,27 @@
                   "fontWeight": "normal"
                 },
                 {
-                  "type": "text",
-                  "id": "w4pC9U",
-                  "name": "Furigana",
-                  "fill": "$text-secondary",
-                  "content": "かんらんしゃ",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 12,
-                  "fontWeight": "normal"
+                  "type": "icon",
+                  "id": "MxNQK",
+                  "name": "Tap Icon",
+                  "width": 28,
+                  "height": 28,
+                  "icon": "pointer",
+                  "library": "lucide",
+                  "fill": "$text-secondary"
                 },
                 {
                   "type": "text",
-                  "id": "rlpVM",
-                  "name": "Topic",
-                  "fill": "$ink",
-                  "content": "観覧車",
-                  "fontFamily": "$font-kanji",
-                  "fontSize": 40,
+                  "id": "T2Vwq",
+                  "name": "Gate Text",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "ヒントを出した人が受け取ったら\nタップして表示",
+                  "lineHeight": 1.5,
+                  "textAlign": "center",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 14,
                   "fontWeight": "normal"
                 }
               ]
@@ -4832,6 +4858,30 @@
                   "content": "正解！"
                 }
               }
+            },
+            {
+              "type": "frame",
+              "id": "TIhkv",
+              "name": "Wrong Button",
+              "width": "fill_container",
+              "height": 52,
+              "cornerRadius": 999,
+              "stroke": "#C9D6C0",
+              "strokeWidth": 2,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vTNrN",
+                  "name": "Wrong Label",
+                  "fill": "#FDFBF2",
+                  "content": "不正解 — もう一度答える",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
             },
             {
               "type": "frame",
@@ -8841,6 +8891,75 @@
                   "content": "渡した — お題を当てる"
                 }
               }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "mCkgM",
+      "x": 2250,
+      "y": 3250,
+      "name": "AD-1 インタースティシャル（ラウンド結果後）",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#3A3A3A",
+      "layout": "vertical",
+      "gap": 16,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "V2AV2",
+          "name": "Ad Box",
+          "width": 320,
+          "height": 480,
+          "fill": "#D9D4C8",
+          "cornerRadius": 8,
+          "justifyContent": "center",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "eowNy",
+              "name": "Ad Label",
+              "fill": "#6B6B6B",
+              "content": "広告",
+              "fontFamily": "$font-ui",
+              "fontSize": 24,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "dEJIM",
+          "name": "Close Row",
+          "gap": 8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "R8VAq",
+              "name": "Close",
+              "width": 22,
+              "height": 22,
+              "icon": "circle-x",
+              "library": "lucide",
+              "fill": "#CFCFCF"
+            },
+            {
+              "type": "text",
+              "id": "GkEdH",
+              "name": "Note",
+              "fill": "#CFCFCF",
+              "content": "ラウンド結果のあとに表示（無料版のみ・スキップ可）",
+              "fontFamily": "$font-ui",
+              "fontSize": 13,
+              "fontWeight": "normal"
             }
           ]
         }
