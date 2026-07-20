@@ -10,3 +10,10 @@ DerivedData/
 
 # macOS
 .DS_Store
+
+# Claude Code local config
+.claude/
+
+# terminal output artifacts
+"\033*"
+4

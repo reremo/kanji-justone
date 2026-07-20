@@ -28,7 +28,7 @@ struct AppSettingsView: View {
                     .buttonStyle(.pressable)
                 Button { path.append(HomeRoute.privacy) } label: { linkRow("プライバシーポリシー") }
                     .buttonStyle(.pressable)
-                Text("漢字ジャストワン v0.1.0（開発版）")
+                Text("漢字の力 v0.1.0（開発版）")
                     .font(.system(size: 12, design: .rounded))
                     .foregroundStyle(Theme.chalkFaded)
                     .padding(.top, 12)

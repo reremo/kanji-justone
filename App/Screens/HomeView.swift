@@ -14,22 +14,8 @@ struct HomeView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
-            VStack(spacing: 16) {
-                HStack(spacing: 12) {
-                    ForEach(Array("漢字力".enumerated()), id: \.offset) { index, char in
-                        KanjiTileView(char: char)
-                            .rotationEffect(.degrees([-8, 5, -4][index % 3]))
-                    }
-                }
-                Text("漢字ジャストワン")
-                    .font(Theme.font(36))
-                    .foregroundStyle(Theme.chalk)
-                Text("かぶらない漢字で伝える パーティゲーム")
-                    .font(Theme.font(14))
-                    .foregroundStyle(Theme.chalkFaded)
-            }
-            Spacer()
+            HeroView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             VStack(spacing: 12) {
                 ChalkButton(title: app.suspendedSession != nil ? "ゲームを始める（中断中あり）" : "ゲームを始める") {
                     if app.suspendedSession != nil {
