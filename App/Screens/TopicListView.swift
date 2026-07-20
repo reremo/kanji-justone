@@ -47,7 +47,7 @@ struct TopicListView: View {
 
     @ViewBuilder
     private var builtinList: some View {
-        ForEach(app.builtinTopics.filter { $0.difficulty == difficulty }) { topic in
+        ForEach(app.availableTopics(for: difficulty)) { topic in
             CardRow {
                 Text(topic.text)
                     .font(Theme.font(16))
@@ -57,11 +57,11 @@ struct TopicListView: View {
                     .foregroundStyle(Theme.inkSecondary)
             }
         }
-        if !app.purchased {
+        if !app.purchased, app.lockedTopicCount(for: difficulty) > 0 {
             HStack(spacing: 8) {
                 Image(systemName: "lock.fill")
                     .foregroundStyle(Theme.inkDisabled)
-                Text("？？？？")
+                Text("あと\(app.lockedTopicCount(for: difficulty))問")
                     .font(Theme.font(16))
                     .foregroundStyle(Theme.inkDisabled)
                 Spacer()

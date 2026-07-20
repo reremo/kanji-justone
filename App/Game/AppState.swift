@@ -12,6 +12,7 @@ final class AppState {
 
     // お題
     let builtinTopics: [Topic]
+    let freeTopicIDs: Set<String>
     private(set) var customTopics: [Topic]
 
     // ゲーム設定（ドラフト）
@@ -41,7 +42,9 @@ final class AppState {
     static let freeMaxRounds = 2
 
     init() {
-        builtinTopics = Self.loadBuiltinTopics()
+        let loaded = Self.loadBuiltinTopics()
+        builtinTopics = loaded.topics
+        freeTopicIDs = loaded.freeIDs
         roster = Self.load([Player].self, key: Keys.roster) ?? []
         customTopics = Self.load([Topic].self, key: Keys.customTopics) ?? []
         records = Self.load([GameRecord].self, key: Keys.records) ?? []
@@ -90,8 +93,18 @@ final class AppState {
 
     var maxRounds: Int { purchased ? 5 : Self.freeMaxRounds }
 
+    /// 現在の購入状態で遊べる通常お題（無料版は各難易度10問）
+    func availableTopics(for difficulty: Difficulty) -> [Topic] {
+        builtinTopics.filter { $0.difficulty == difficulty }
+            .filter { purchased || freeTopicIDs.contains($0.id) }
+    }
+
+    func lockedTopicCount(for difficulty: Difficulty) -> Int {
+        builtinTopics.filter { $0.difficulty == difficulty }.count - availableTopics(for: difficulty).count
+    }
+
     func startGame() throws {
-        let topics = useCustomTopics ? customTopics : builtinTopics.filter { $0.difficulty == difficulty }
+        let topics = useCustomTopics ? customTopics : availableTopics(for: difficulty)
         let config = try GameConfig(
             players: selectedPlayers,
             rounds: rounds,
@@ -144,16 +157,28 @@ final class AppState {
         return try? JSONDecoder().decode(type, from: data)
     }
 
-    private static func loadBuiltinTopics() -> [Topic] {
+    private static func loadBuiltinTopics() -> (topics: [Topic], freeIDs: Set<String>) {
+        struct Entry: Decodable {
+            let id: String
+            let text: String
+            let furigana: String
+            let difficulty: Difficulty
+            let category: String
+            let free: Bool
+        }
         struct TopicFile: Decodable {
             let schemaVersion: Int
-            let topics: [Topic]
+            let topics: [Entry]
         }
-        guard let url = Bundle.main.url(forResource: "topics-dev", withExtension: "json"),
+        guard let url = Bundle.main.url(forResource: "topics", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let file = try? JSONDecoder().decode(TopicFile.self, from: data) else {
-            return []
+            return ([], [])
         }
-        return file.topics
+        let topics = file.topics.map {
+            Topic(id: $0.id, text: $0.text, furigana: $0.furigana, difficulty: $0.difficulty)
+        }
+        let freeIDs = Set(file.topics.filter(\.free).map(\.id))
+        return (topics, freeIDs)
     }
 }
