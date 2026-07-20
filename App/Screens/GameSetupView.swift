@@ -133,7 +133,7 @@ struct GameSetupView: View {
     @ViewBuilder
     private var charsRow: some View {
         if app.purchased {
-            let atMax = app.charsPerPlayer >= 3
+            let atMax = app.charsPerPlayer >= 5
             stepperCard(label: "一人の文字数", value: "\(app.charsPerPlayer)",
                         minusEnabled: app.charsPerPlayer > 1, plusState: atMax ? .disabled : .enabled) {
                 app.charsPerPlayer = max(1, app.charsPerPlayer - 1)
