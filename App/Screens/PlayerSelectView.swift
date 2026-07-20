@@ -27,6 +27,7 @@ struct PlayerSelectView: View {
                         .buttonStyle(.plain)
                     }
                     .padding(.horizontal, 16)
+                    .padding(.bottom, 2)
                 }
                 List {
                     ForEach(app.roster) { player in
@@ -41,7 +42,7 @@ struct PlayerSelectView: View {
                     addRow
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                        .listRowInsets(EdgeInsets(top: 18, leading: 16, bottom: 6, trailing: 16))
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
@@ -126,8 +127,8 @@ struct PlayerSelectView: View {
                     .foregroundStyle(selected ? Theme.success : Theme.tileBorder)
             }
         }
-        .padding(.horizontal, 14)
-        .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+        .padding(.horizontal, 18)
+        .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
         // ドラッグ中のプレビューは listRowBackground を含まないため、コンテンツ側にも白カードを重ねる
         .background(RoundedRectangle(cornerRadius: 14).fill(Theme.card))
         .contentShape(Rectangle())
