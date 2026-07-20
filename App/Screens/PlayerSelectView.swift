@@ -8,8 +8,8 @@ struct PlayerSelectView: View {
     @State private var editing = false
     @State private var renameTarget: Player?
     @State private var renameText = ""
-    @State private var showAddAlert = false
     @State private var newName = ""
+    @FocusState private var addFieldFocused: Bool
 
     var body: some View {
         let count = app.selectedPlayers.count
@@ -39,10 +39,6 @@ struct PlayerSelectView: View {
                     .onMove { from, to in
                         app.movePlayers(fromOffsets: from, toOffset: to)
                     }
-                    addRow
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 18, leading: 16, bottom: 6, trailing: 16))
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
@@ -50,6 +46,26 @@ struct PlayerSelectView: View {
             }
             .padding(.top, 12)
         } actions: {
+            HStack(spacing: 8) {
+                TextField("新しいプレイヤーの名前", text: $newName)
+                    .font(Theme.font(16))
+                    .foregroundStyle(Theme.ink)
+                    .focused($addFieldFocused)
+                    .submitLabel(.done)
+                    .onSubmit(addPlayer)
+                    .padding(.horizontal, 16)
+                    .frame(height: 52)
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Theme.card))
+                Button(action: addPlayer) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundStyle(Theme.ink)
+                        .frame(width: 52, height: 52)
+                        .background(Circle().fill(Theme.primary))
+                }
+                .buttonStyle(.plain)
+                .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
+            }
             ChalkButton(title: count >= 3 ? "\(count)人で遊ぶ — 設定へ" : "3人以上えらんでください",
                         enabled: (3...8).contains(count)) {
                 path.append(HomeRoute.setup)
@@ -68,14 +84,14 @@ struct PlayerSelectView: View {
             }
             Button("キャンセル", role: .cancel) { renameTarget = nil }
         }
-        .alert("プレイヤーを追加", isPresented: $showAddAlert) {
-            TextField("名前", text: $newName)
-            Button("追加") {
-                app.addPlayer(name: newName)
-                newName = ""
-            }
-            Button("キャンセル", role: .cancel) { newName = "" }
-        }
+    }
+
+    private func addPlayer() {
+        let trimmed = newName.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return }
+        Haptics.light()
+        app.addPlayer(name: trimmed)
+        newName = ""
     }
 
     /// 行の白カード背景（通常/編集で共通。ドラッグハンドル領域もカードに含める）
@@ -155,24 +171,4 @@ struct PlayerSelectView: View {
         }
     }
 
-    private var addRow: some View {
-        Button {
-            Haptics.light()
-            showAddAlert = true
-        } label: {
-            HStack(spacing: 8) {
-                Image(systemName: "plus")
-                    .font(.system(size: 16, weight: .semibold))
-                Text("プレイヤーを追加")
-                    .font(Theme.font(15))
-            }
-            .foregroundStyle(Theme.chalkFaded)
-            .frame(maxWidth: .infinity, minHeight: 52)
-            .background(
-                RoundedRectangle(cornerRadius: 14)
-                    .strokeBorder(Theme.ghostIcon, lineWidth: 2)
-            )
-        }
-        .buttonStyle(.plain)
-    }
 }
