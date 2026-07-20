@@ -58,11 +58,20 @@ struct FinalResultView: View {
                 }
         } actions: {
             ChalkButton(title: "もう一度あそぶ") {
-                try? app.startGame()
+                showAdThen { try? app.startGame() }
             }
             ChalkButton(title: "ホームへ戻る", style: .outline) {
-                app.endGame()
+                showAdThen { app.endGame() }
             }
+        }
+    }
+
+    /// 最終結果の後も無料版はインタースティシャルを挟む（要件準拠）
+    private func showAdThen(_ action: @escaping () -> Void) {
+        if app.purchased {
+            action()
+        } else {
+            app.ads.showInterstitial(completion: action)
         }
     }
 }
