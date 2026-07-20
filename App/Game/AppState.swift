@@ -125,7 +125,22 @@ final class AppState {
 
     // MARK: - ゲーム開始・終了
 
-    var maxRounds: Int { purchased ? 5 : Self.freeMaxRounds }
+    static let maxRoundsCap = 10
+    var maxRounds: Int { purchased ? Self.maxRoundsCap : Self.freeMaxRounds }
+
+    /// 無料版のヒント文字数（参加人数で自動決定）
+    static func freeCharsPerPlayer(for playerCount: Int) -> Int {
+        switch playerCount {
+        case ...3: 3
+        case 4: 2
+        default: 1
+        }
+    }
+
+    /// 実際に使う文字数（無料は人数で固定、有料は charsPerPlayer の設定値）
+    var effectiveCharsPerPlayer: Int {
+        purchased ? charsPerPlayer : Self.freeCharsPerPlayer(for: selectedPlayers.count)
+    }
 
     /// 現在の購入状態で遊べる通常お題（無料版は各難易度10問）
     func availableTopics(for difficulty: Difficulty) -> [Topic] {
@@ -141,8 +156,8 @@ final class AppState {
         let topics = useCustomTopics ? customTopics : availableTopics(for: difficulty)
         let config = try GameConfig(
             players: selectedPlayers,
-            rounds: rounds,
-            charsPerPlayer: charsPerPlayer,
+            rounds: min(rounds, maxRounds),
+            charsPerPlayer: effectiveCharsPerPlayer,
             answererMode: answererMode
         )
         let session = GameSession(config: config, topics: topics)

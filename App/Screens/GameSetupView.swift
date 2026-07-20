@@ -12,16 +12,8 @@ struct GameSetupView: View {
         NavScreen(title: "ゲーム設定") {
             ScrollView {
                 VStack(spacing: 12) {
-                    stepperRow(label: "ラウンド数", value: app.rounds, locked: !app.purchased && app.rounds >= AppState.freeMaxRounds) {
-                        app.rounds = max(1, app.rounds - 1)
-                    } plus: {
-                        app.rounds = min(app.maxRounds, app.rounds + 1)
-                    }
-                    stepperRow(label: "一人の文字数", value: app.charsPerPlayer, locked: !app.purchased) {
-                        if app.purchased { app.charsPerPlayer = max(1, app.charsPerPlayer - 1) }
-                    } plus: {
-                        if app.purchased { app.charsPerPlayer = min(3, app.charsPerPlayer + 1) }
-                    }
+                    roundsRow
+                    charsRow
                     segmentCard(label: "お題") {
                         segment(items: [("通常お題", !app.useCustomTopics, false),
                                         ("自作お題", app.useCustomTopics, !app.purchased)]) { index in
@@ -116,34 +108,99 @@ struct GameSetupView: View {
         }
     }
 
+    /// プラスボタンの状態
+    private enum PlusState { case enabled, premium, disabled }
+
+    // ラウンド数（無料は上限2で+が🔒プレミア、上限10で+グレー）
     @ViewBuilder
-    private func stepperRow(label: String, value: Int, locked: Bool, minus: @escaping () -> Void, plus: @escaping () -> Void) -> some View {
+    private var roundsRow: some View {
+        let atFreeLimit = !app.purchased && app.rounds >= AppState.freeMaxRounds
+        let atCap = app.rounds >= AppState.maxRoundsCap
+        let plusState: PlusState = atCap ? .disabled : (atFreeLimit ? .premium : .enabled)
+        stepperCard(label: "ラウンド数", value: "\(app.rounds)",
+                    minusEnabled: app.rounds > 1, plusState: plusState) {
+            app.rounds = max(1, app.rounds - 1)
+        } plus: {
+            switch plusState {
+            case .enabled: app.rounds += 1
+            case .premium: path.append(HomeRoute.shop)
+            case .disabled: break
+            }
+        }
+    }
+
+    // ヒント文字数（無料は人数で固定・変更不可で🔒、有料は1〜3自由）
+    @ViewBuilder
+    private var charsRow: some View {
+        if app.purchased {
+            let atMax = app.charsPerPlayer >= 3
+            stepperCard(label: "一人の文字数", value: "\(app.charsPerPlayer)",
+                        minusEnabled: app.charsPerPlayer > 1, plusState: atMax ? .disabled : .enabled) {
+                app.charsPerPlayer = max(1, app.charsPerPlayer - 1)
+            } plus: {
+                if !atMax { app.charsPerPlayer += 1 }
+            }
+        } else {
+            // 無料: 人数で自動決定。値のみ表示し、＋−の代わりに🔒でショップ誘導
+            Button {
+                path.append(HomeRoute.shop)
+            } label: {
+                CardRow {
+                    Text("一人の文字数")
+                        .font(Theme.font(15))
+                        .foregroundStyle(Theme.ink)
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 13))
+                        .foregroundStyle(Theme.primaryDark)
+                    Spacer()
+                    Text("\(app.effectiveCharsPerPlayer)文字")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.ink)
+                    Text("（\(app.selectedPlayers.count)人）")
+                        .font(Theme.font(12))
+                        .foregroundStyle(Theme.inkSecondary)
+                }
+            }
+            .buttonStyle(.pressable)
+        }
+    }
+
+    @ViewBuilder
+    private func stepperCard(label: String, value: String, minusEnabled: Bool, plusState: PlusState,
+                             minus: @escaping () -> Void, plus: @escaping () -> Void) -> some View {
         CardRow {
             Text(label)
                 .font(Theme.font(15))
                 .foregroundStyle(Theme.ink)
-            if locked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 13))
-                    .foregroundStyle(Theme.inkSecondary)
-            }
             Spacer()
             Button(action: minus) {
                 Image(systemName: "minus.circle")
                     .font(.system(size: 26))
-                    .foregroundStyle(Theme.inkSecondary)
+                    .foregroundStyle(minusEnabled ? Theme.inkSecondary : Theme.inkDisabled)
             }
             .buttonStyle(.pressable)
-            Text("\(value)")
+            .disabled(!minusEnabled)
+            Text(value)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
                 .frame(minWidth: 28)
             Button(action: plus) {
-                Image(systemName: "plus.circle")
-                    .font(.system(size: 26))
-                    .foregroundStyle(Theme.primaryDark)
+                ZStack(alignment: .topTrailing) {
+                    Image(systemName: "plus.circle")
+                        .font(.system(size: 26))
+                        .foregroundStyle(plusState == .disabled ? Theme.inkDisabled : Theme.primaryDark)
+                    if plusState == .premium {
+                        Image(systemName: "lock.fill")
+                            .font(.system(size: 11))
+                            .foregroundStyle(Theme.ink)
+                            .padding(2)
+                            .background(Circle().fill(Theme.primary))
+                            .offset(x: 6, y: -6)
+                    }
+                }
             }
             .buttonStyle(.pressable)
+            .disabled(plusState == .disabled)
         }
     }
 
