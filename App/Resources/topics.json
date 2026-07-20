@@ -87,7 +87,7 @@
       "furigana": "しゃぼんだま",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-012",
@@ -95,7 +95,7 @@
       "furigana": "さんたくろーす",
       "difficulty": "easy",
       "category": "ぎょうじ",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-013",
@@ -103,7 +103,7 @@
       "furigana": "おにぎり",
       "difficulty": "easy",
       "category": "たべもの",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-014",
@@ -111,7 +111,7 @@
       "furigana": "かれーらいす",
       "difficulty": "easy",
       "category": "たべもの",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-015",
@@ -119,7 +119,7 @@
       "furigana": "すいぞくかん",
       "difficulty": "easy",
       "category": "ばしょ",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-016",
@@ -127,7 +127,7 @@
       "furigana": "うんどうかい",
       "difficulty": "easy",
       "category": "がっこう",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-017",
@@ -135,7 +135,7 @@
       "furigana": "たんじょうび",
       "difficulty": "easy",
       "category": "ぎょうじ",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-018",
@@ -143,7 +143,7 @@
       "furigana": "おふろ",
       "difficulty": "easy",
       "category": "くらし",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-019",
@@ -151,7 +151,7 @@
       "furigana": "きゅうしょく",
       "difficulty": "easy",
       "category": "がっこう",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-020",
@@ -159,7 +159,7 @@
       "furigana": "なつやすみ",
       "difficulty": "easy",
       "category": "きせつ",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-021",
@@ -167,7 +167,7 @@
       "furigana": "ゆきがっせん",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-022",
@@ -175,7 +175,7 @@
       "furigana": "なわとび",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-023",
@@ -183,7 +183,7 @@
       "furigana": "かくれんぼ",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-024",
@@ -191,7 +191,7 @@
       "furigana": "おにごっこ",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-025",
@@ -199,7 +199,7 @@
       "furigana": "おりがみ",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-026",
@@ -207,7 +207,7 @@
       "furigana": "かみひこうき",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-027",
@@ -215,7 +215,7 @@
       "furigana": "ふうせん",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-028",
@@ -223,7 +223,7 @@
       "furigana": "どーなつ",
       "difficulty": "easy",
       "category": "たべもの",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-029",
@@ -231,7 +231,7 @@
       "furigana": "かいてんずし",
       "difficulty": "easy",
       "category": "たべもの",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-030",
@@ -239,7 +239,7 @@
       "furigana": "じぇっとこーすたー",
       "difficulty": "easy",
       "category": "あそび",
-      "free": false
+      "free": true
     },
     {
       "id": "t-e-031",
@@ -351,7 +351,7 @@
       "furigana": "うちゅうひこうし",
       "difficulty": "normal",
       "category": "しごと",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-012",
@@ -359,7 +359,7 @@
       "furigana": "たくはいびん",
       "difficulty": "normal",
       "category": "くらし",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-013",
@@ -367,7 +367,7 @@
       "furigana": "こんびに",
       "difficulty": "normal",
       "category": "ばしょ",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-014",
@@ -375,7 +375,7 @@
       "furigana": "かふんしょう",
       "difficulty": "normal",
       "category": "きせつ",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-015",
@@ -383,7 +383,7 @@
       "furigana": "たいふう",
       "difficulty": "normal",
       "category": "しぜん",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-016",
@@ -391,7 +391,7 @@
       "furigana": "まんげつ",
       "difficulty": "normal",
       "category": "しぜん",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-017",
@@ -399,7 +399,7 @@
       "furigana": "ながれぼし",
       "difficulty": "normal",
       "category": "しぜん",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-018",
@@ -407,7 +407,7 @@
       "furigana": "あまのがわ",
       "difficulty": "normal",
       "category": "しぜん",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-019",
@@ -415,7 +415,7 @@
       "furigana": "とうだい",
       "difficulty": "normal",
       "category": "ばしょ",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-020",
@@ -423,7 +423,7 @@
       "furigana": "おしろ",
       "difficulty": "normal",
       "category": "れきし",
-      "free": false
+      "free": true
     },
     {
       "id": "t-n-021",
@@ -551,7 +551,7 @@
       "furigana": "しんきろう",
       "difficulty": "hard",
       "category": "しぜん",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-002",
@@ -559,7 +559,7 @@
       "furigana": "おーろら",
       "difficulty": "hard",
       "category": "しぜん",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-003",
@@ -567,7 +567,7 @@
       "furigana": "そうまとう",
       "difficulty": "hard",
       "category": "ことば",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-004",
@@ -575,7 +575,7 @@
       "furigana": "むじゅうりょく",
       "difficulty": "hard",
       "category": "かがく",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-005",
@@ -583,7 +583,7 @@
       "furigana": "たいむましん",
       "difficulty": "hard",
       "category": "ファンタジー",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-006",
@@ -591,7 +591,7 @@
       "furigana": "かなしばり",
       "difficulty": "hard",
       "category": "ふしぎ",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-007",
@@ -599,7 +599,7 @@
       "furigana": "みっかぼうず",
       "difficulty": "hard",
       "category": "ことば",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-008",
@@ -607,7 +607,7 @@
       "furigana": "でじゃぶ",
       "difficulty": "hard",
       "category": "ふしぎ",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-009",
@@ -615,7 +615,7 @@
       "furigana": "ひとめぼれ",
       "difficulty": "hard",
       "category": "きもち",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-010",
@@ -623,7 +623,7 @@
       "furigana": "ごがつびょう",
       "difficulty": "hard",
       "category": "ことば",
-      "free": true
+      "free": false
     },
     {
       "id": "t-h-011",

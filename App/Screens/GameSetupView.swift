@@ -29,7 +29,9 @@ struct GameSetupView: View {
                                 .foregroundStyle(Theme.inkSecondary)
                             segment(items: [("やさしい", app.difficulty == .easy, false),
                                             ("ふつう", app.difficulty == .normal, false),
-                                            ("むずかしい", app.difficulty == .hard, false)]) { index in
+                                            ("むずかしい", app.difficulty == .hard, !app.purchased)]) { index in
+                                // むずかしいは無料開放お題が0問のため、未購入は選択不可（🔒のみ・遷移なし）
+                                guard !(index == 2 && !app.purchased) else { return }
                                 app.difficulty = [.easy, .normal, .hard][index]
                             }
                         }
