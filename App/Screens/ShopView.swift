@@ -24,9 +24,16 @@ struct ShopView: View {
                         feature("ヒントの文字数を変えられる")
                         feature("通常お題 全部＋自作お題モード")
                     }
-                    Text(app.store.product?.displayPrice ?? "¥600")
-                        .font(.system(size: 34, weight: .bold, design: .rounded))
-                        .foregroundStyle(Theme.primaryDark)
+                    if app.purchased {
+                        Label("購入済み", systemImage: "checkmark.seal.fill")
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.success)
+                            .padding(.top, 4)
+                    } else {
+                        Text(app.store.product?.displayPrice ?? "¥600")
+                            .font(.system(size: 34, weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.primaryDark)
+                    }
                     if let error = app.store.lastError {
                         Text(error)
                             .font(Theme.font(12))
@@ -71,10 +78,13 @@ struct ShopView: View {
     }
 
     private func feature(_ text: String) -> some View {
-        Label(text, systemImage: "checkmark.circle.fill")
-            .font(Theme.font(14))
-            .foregroundStyle(Theme.ink)
-            .symbolRenderingMode(.palette)
-            .foregroundStyle(Theme.success, Theme.success.opacity(0.15))
+        HStack(spacing: 8) {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 18))
+                .foregroundStyle(Theme.success)
+            Text(text)
+                .font(Theme.font(14))
+                .foregroundStyle(Theme.ink)
+        }
     }
 }
