@@ -29,8 +29,13 @@ struct GameSetupView: View {
                                 .foregroundStyle(Theme.inkSecondary)
                             segment(items: [("やさしい", app.difficulty == .easy, false),
                                             ("ふつう", app.difficulty == .normal, false),
-                                            ("むずかしい", app.difficulty == .hard, false)]) { index in
-                                app.difficulty = [.easy, .normal, .hard][index]
+                                            ("むずかしい", app.difficulty == .hard, !app.purchased)]) { index in
+                                // むずかしいは無料開放お題が0問のため、未購入はショップへ誘導
+                                if index == 2 && !app.purchased {
+                                    path.append(HomeRoute.shop)
+                                } else {
+                                    app.difficulty = [.easy, .normal, .hard][index]
+                                }
                             }
                         }
                     }

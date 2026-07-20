@@ -24,7 +24,11 @@ const outPath = join(root, "App/Resources/topics.json");
 
 const HIRAGANA = /^[ぁ-ゖー]+$/;
 const DIFFICULTIES: Difficulty[] = ["easy", "normal", "hard"];
-const FREE_PER_DIFFICULTY = 10;
+// 各難易度の目標問数（本番）と無料枠
+const TARGET_PER_DIFFICULTY = 100;
+const FREE_BY_DIFFICULTY: Record<Difficulty, number> = { easy: 30, normal: 20, hard: 0 };
+// お題を制作しきるまでの暫定許容（本番リリース前に TARGET へ引き上げる）
+const MIN_PER_DIFFICULTY = 30;
 
 function fail(message: string): never {
   console.error(`NG: ${message}`);
@@ -67,11 +71,15 @@ if (texts.size !== topics.length) fail("text（お題本文）に重複があり
 for (const d of DIFFICULTIES) {
   const all = topics.filter((t) => t.difficulty === d);
   const free = all.filter((t) => t.free);
-  if (all.length < 30) fail(`${d}: ${all.length}問（30問以上必要）`);
-  if (free.length !== FREE_PER_DIFFICULTY) {
-    fail(`${d}: 無料枠が${free.length}問（${FREE_PER_DIFFICULTY}問ちょうど必要）`);
+  const wantFree = FREE_BY_DIFFICULTY[d];
+  if (all.length < MIN_PER_DIFFICULTY) fail(`${d}: ${all.length}問（最低${MIN_PER_DIFFICULTY}問必要）`);
+  // 無料枠は「先頭から wantFree 問」を無料にする運用。問数が足りていれば厳密一致を要求
+  if (all.length >= TARGET_PER_DIFFICULTY && free.length !== wantFree) {
+    fail(`${d}: 無料枠が${free.length}問（${wantFree}問ちょうど必要）`);
   }
-  console.log(`OK: ${d} ${all.length}問（無料 ${free.length}問）`);
+  if (free.length > wantFree) fail(`${d}: 無料枠が${free.length}問（上限${wantFree}問）`);
+  const badge = all.length >= TARGET_PER_DIFFICULTY ? "OK" : "WIP";
+  console.log(`${badge}: ${d} ${all.length}/${TARGET_PER_DIFFICULTY}問（無料 ${free.length}/${wantFree}問）`);
 }
 
 writeFileSync(

@@ -152,8 +152,18 @@ final class AppState {
         builtinTopics.filter { $0.difficulty == difficulty }.count - availableTopics(for: difficulty).count
     }
 
+    enum StartError: LocalizedError {
+        case noTopics
+        var errorDescription: String? {
+            switch self {
+            case .noTopics: "この難易度の遊べるお題がありません（買い切りで解放されます）"
+            }
+        }
+    }
+
     func startGame() throws {
         let topics = useCustomTopics ? customTopics : availableTopics(for: difficulty)
+        guard !topics.isEmpty else { throw StartError.noTopics }
         let config = try GameConfig(
             players: selectedPlayers,
             rounds: min(rounds, maxRounds),
