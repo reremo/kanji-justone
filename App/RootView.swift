@@ -38,7 +38,9 @@ struct RootView: View {
         case .historyDetail(let record): HistoryDetailView(record: record)
         case .stats: StatsView()
         case .shop: ShopView()
-        case .appSettings: AppSettingsView()
+        case .appSettings: AppSettingsView(path: $path)
+        case .terms: LegalTextView(title: "利用規約", content: LegalText.termsOfService)
+        case .privacy: LegalTextView(title: "プライバシーポリシー", content: LegalText.privacyPolicy)
         }
     }
 }
