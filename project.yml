@@ -31,3 +31,11 @@ targets:
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         ITSAppUsesNonExemptEncryption: false
+schemes:
+  KanjiJustOne:
+    build:
+      targets:
+        KanjiJustOne: all
+    run:
+      config: Debug
+      storeKitConfiguration: Products.storekit
