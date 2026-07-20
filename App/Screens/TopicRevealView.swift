@@ -9,10 +9,6 @@ struct TopicRevealView: View {
         let engine = session.engine
         ChalkScreen(progress: session.progressLine, title: "お題を見る") {
             VStack(spacing: 20) {
-                if let duration = engine.config.timer {
-                    TimerChip(duration: duration)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
                 if let topic = engine.topic {
                     VStack(spacing: 14) {
                         Text(difficultyLabel(topic.difficulty))
