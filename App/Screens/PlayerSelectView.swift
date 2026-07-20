@@ -14,13 +14,9 @@ struct PlayerSelectView: View {
         let count = app.selectedPlayers.count
         NavScreen(title: "だれが遊ぶ？") {
             VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Text(editing ? "ドラッグで並び替え・スワイプで削除・タップで名前変更"
-                                 : "タップして今回の参加者を選ぶ（3〜8人）")
-                        .font(Theme.font(13))
-                        .foregroundStyle(Theme.chalkFaded)
-                    Spacer()
-                    if !app.roster.isEmpty {
+                if !app.roster.isEmpty {
+                    HStack {
+                        Spacer()
                         Button(editing ? "完了" : "編集") {
                             Haptics.light()
                             editing.toggle()
@@ -35,7 +31,7 @@ struct PlayerSelectView: View {
                         playerRow(player)
                             .listRowBackground(rowBackground(for: player))
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+                            .listRowInsets(EdgeInsets(top: 5, leading: 16, bottom: 5, trailing: 16))
                     }
                     .onMove { from, to in
                         app.movePlayers(fromOffsets: from, toOffset: to)
@@ -90,7 +86,7 @@ struct PlayerSelectView: View {
         }
     }
 
-    /// 行の白カード背景（通常/編集で共通の見た目を保つ）
+    /// 行の白カード背景（通常/編集で共通の見た目を保つ。ドラッグハンドル領域もカードに含める）
     private func rowBackground(for player: Player) -> some View {
         let selected = app.selectedPlayerIDs.contains(player.id)
         return RoundedRectangle(cornerRadius: 12)
@@ -99,7 +95,6 @@ struct PlayerSelectView: View {
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(selected && !editing ? Theme.primary : .clear, lineWidth: 2.5)
             )
-            .padding(.vertical, 5)
     }
 
     @ViewBuilder
@@ -139,7 +134,11 @@ struct PlayerSelectView: View {
                 .buttonStyle(.plain)
             }
         }
-        .frame(minHeight: 34)
+        .padding(.horizontal, 14)
+        .frame(maxWidth: .infinity, minHeight: 46, alignment: .leading)
+        // ドラッグ中のプレビューは listRowBackground を含まないため、
+        // コンテンツ側にも同じ白カードを重ねて角丸を維持する
+        .background(RoundedRectangle(cornerRadius: 12).fill(Theme.card))
         .contentShape(Rectangle())
         .onTapGesture {
             guard !editing else { return }
