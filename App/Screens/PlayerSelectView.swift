@@ -1,78 +1,85 @@
 import SwiftUI
 import KanjiCore
 
-/// S03 プレイヤー選択・登録（編集モードで削除・並び替え・名前変更）
+/// S03 プレイヤー選択・登録（デザイン案B: 名簿風リスト・チェックは右）
 struct PlayerSelectView: View {
     @Environment(AppState.self) private var app
     @Binding var path: NavigationPath
-    @State private var newName = ""
     @State private var editing = false
     @State private var renameTarget: Player?
     @State private var renameText = ""
+    @State private var newName = ""
+    @State private var scrollTarget: Player.ID?
+    @FocusState private var addFieldFocused: Bool
 
     var body: some View {
         let count = app.selectedPlayers.count
         NavScreen(title: "だれが遊ぶ？") {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Text(editing ? "ドラッグで並び替え・スワイプで削除・タップで名前変更"
-                                 : "タップして今回の参加者を選ぶ（3〜8人）")
-                        .font(Theme.font(13))
-                        .foregroundStyle(Theme.chalkFaded)
-                    Spacer()
-                    if !app.roster.isEmpty {
-                        Button(editing ? "完了" : "編集") {
+            VStack(alignment: .leading, spacing: 8) {
+                if !app.roster.isEmpty {
+                    HStack {
+                        Spacer()
+                        Button {
                             Haptics.light()
                             editing.toggle()
+                        } label: {
+                            Text(editing ? "完了" : "編集")
+                                .font(Theme.font(15))
+                                .foregroundStyle(Theme.primary)
+                                .padding(.vertical, 6)
+                                .padding(.horizontal, 8)
+                                .contentShape(Rectangle())
                         }
-                        .font(Theme.font(14))
-                        .foregroundStyle(Theme.primary)
                         .buttonStyle(.plain)
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 2)
                 }
-                List {
-                    ForEach(app.roster) { player in
-                        playerRow(player)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                ScrollViewReader { proxy in
+                    List {
+                        ForEach(app.roster) { player in
+                            playerRow(player)
+                                .id(player.id)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(EdgeInsets(top: 7, leading: 16, bottom: 7, trailing: 16))
+                        }
+                        // システムのドラッグハンドル（カード外の緑地に出て見えない）を使わず、
+                        // カード全体を長押しして並び替える
+                        .onMove { from, to in
+                            app.movePlayers(fromOffsets: from, toOffset: to)
+                        }
                     }
-                    .onMove { from, to in
-                        app.movePlayers(fromOffsets: from, toOffset: to)
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                    .onChange(of: scrollTarget) { _, target in
+                        guard let target else { return }
+                        withAnimation { proxy.scrollTo(target, anchor: .bottom) }
                     }
-                    .onDelete { offsets in
-                        app.removePlayers(atOffsets: offsets)
-                    }
-                }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .environment(\.editMode, .constant(editing ? .active : .inactive))
-                HStack(spacing: 8) {
-                    TextField("新しいプレイヤーの名前", text: $newName)
-                        .font(Theme.font(16))
-                        .foregroundStyle(Theme.ink)
-                        .padding(.horizontal, 16)
-                        .frame(height: 52)
-                        .background(RoundedRectangle(cornerRadius: 12).fill(Theme.card))
-                    Button {
-                        Haptics.light()
-                        app.addPlayer(name: newName)
-                        newName = ""
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundStyle(Theme.ink)
-                            .frame(width: 52, height: 52)
-                            .background(Circle().fill(Theme.primary))
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 20)
-            .padding(.bottom, 12)
+            .padding(.top, 12)
         } actions: {
+            HStack(spacing: 8) {
+                TextField("新しいプレイヤーの名前", text: $newName)
+                    .font(Theme.font(16))
+                    .foregroundStyle(Theme.ink)
+                    .focused($addFieldFocused)
+                    .submitLabel(.done)
+                    .onSubmit(addPlayer)
+                    .padding(.horizontal, 16)
+                    .frame(height: 52)
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Theme.card))
+                Button(action: addPlayer) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundStyle(Theme.ink)
+                        .frame(width: 52, height: 52)
+                        .background(Circle().fill(Theme.primary))
+                }
+                .buttonStyle(.plain)
+                .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
+            }
             ChalkButton(title: count >= 3 ? "\(count)人で遊ぶ — 設定へ" : "3人以上えらんでください",
                         enabled: (3...8).contains(count)) {
                 path.append(HomeRoute.setup)
@@ -93,40 +100,76 @@ struct PlayerSelectView: View {
         }
     }
 
+    private func addPlayer() {
+        let trimmed = newName.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return }
+        Haptics.light()
+        app.addPlayer(name: trimmed)
+        newName = ""
+        addFieldFocused = false          // キーボードを閉じる
+        scrollTarget = app.roster.last?.id  // 追加した行までスクロール
+    }
+
     @ViewBuilder
     private func playerRow(_ player: Player) -> some View {
         let selected = app.selectedPlayerIDs.contains(player.id)
-        Button {
+        HStack(spacing: 12) {
+            // 左: 編集時は削除、通常時は選択チェック
             if editing {
-                renameTarget = player
-                renameText = player.name
+                Button {
+                    Haptics.light()
+                    if let index = app.roster.firstIndex(where: { $0.id == player.id }) {
+                        withAnimation { app.removePlayers(atOffsets: [index]) }
+                    }
+                } label: {
+                    Image(systemName: "trash.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundStyle(Theme.error)
+                }
+                .buttonStyle(.plain)
             } else {
-                Haptics.light()
-                app.toggleSelection(player.id)
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 24))
+                    .foregroundStyle(selected ? Theme.success : Theme.tileBorder)
             }
-        } label: {
-            CardRow {
-                if !editing {
-                    Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                        .font(.system(size: 22))
-                        .foregroundStyle(selected ? Theme.success : Theme.inkDisabled)
+            Text(player.name)
+                .font(Theme.font(18))
+                .foregroundStyle(Theme.ink)
+            Spacer()
+            // 右: 編集時は名前変更、通常時は並び替え（長押し）の目印
+            if editing {
+                Button {
+                    renameTarget = player
+                    renameText = player.name
+                } label: {
+                    Image(systemName: "pencil.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundStyle(Theme.primaryDark)
                 }
-                Text(player.name)
-                    .font(Theme.font(18))
-                    .foregroundStyle(Theme.ink)
-                if editing {
-                    Spacer()
-                    Image(systemName: "pencil")
-                        .font(.system(size: 15))
-                        .foregroundStyle(Theme.inkSecondary)
-                }
+                .buttonStyle(.plain)
+            } else {
+                Image(systemName: "line.3.horizontal")
+                    .font(.system(size: 18))
+                    .foregroundStyle(Theme.inkDisabled)
             }
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(selected && !editing ? Theme.primary : .clear, lineWidth: 2.5)
-            )
         }
-        .buttonStyle(.plain)
+        .padding(.horizontal, 18)
+        .frame(maxWidth: .infinity, minHeight: 56, alignment: .leading)
+        // 背景はコンテンツ側にのみ持たせる（listRowBackgroundだと余白まで塗られてカード間が詰まる）
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(selected && !editing ? Theme.primaryLight : Theme.card)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(Theme.tileBorder, lineWidth: 1.5)
+                )
+        )
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard !editing else { return }
+            Haptics.light()
+            app.toggleSelection(player.id)
+        }
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button(role: .destructive) {
                 if let index = app.roster.firstIndex(where: { $0.id == player.id }) {
@@ -144,4 +187,5 @@ struct PlayerSelectView: View {
             .tint(Theme.primaryDark)
         }
     }
+
 }

@@ -3005,403 +3005,6 @@
     },
     {
       "type": "frame",
-      "id": "tWoJb",
-      "x": 900,
-      "y": 1250,
-      "name": "S03 プレイヤー選択",
-      "clip": true,
-      "width": 390,
-      "height": 844,
-      "fill": "$bg",
-      "layout": "vertical",
-      "children": [
-        {
-          "id": "qiMXr",
-          "type": "ref",
-          "ref": "rLwx3",
-          "name": "Status Bar",
-          "width": "fill_container",
-          "fill": "#24483A"
-        },
-        {
-          "type": "frame",
-          "id": "RFlEq",
-          "name": "Header",
-          "width": "fill_container",
-          "fill": "#24483A",
-          "stroke": "#4E7561",
-          "strokeWidth": {
-            "bottom": 2
-          },
-          "gap": 10,
-          "padding": [
-            8,
-            16,
-            14,
-            16
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon",
-              "id": "y4NkVU",
-              "name": "Back",
-              "width": 22,
-              "height": 22,
-              "icon": "arrow-left",
-              "library": "lucide",
-              "fill": "#FDFBF2"
-            },
-            {
-              "type": "text",
-              "id": "QwD6x",
-              "name": "Title",
-              "fill": "#FDFBF2",
-              "content": "だれが遊ぶ？",
-              "fontFamily": "$font-ui",
-              "fontSize": 24,
-              "fontWeight": "normal"
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "noMwj",
-          "name": "Main",
-          "width": "fill_container",
-          "height": "fill_container",
-          "layout": "vertical",
-          "gap": 10,
-          "padding": [
-            20,
-            16,
-            0,
-            16
-          ],
-          "children": [
-            {
-              "type": "text",
-              "id": "W0Vpw",
-              "name": "Note",
-              "fill": "#C9D6C0",
-              "content": "タップして今回の参加者を選ぶ（3〜8人・おすすめは3〜6人）",
-              "fontFamily": "$font-ui",
-              "fontSize": 13,
-              "fontWeight": "normal"
-            },
-            {
-              "type": "frame",
-              "id": "iJ08A",
-              "name": "Player ゆうき",
-              "width": "fill_container",
-              "height": 56,
-              "fill": "$card",
-              "cornerRadius": 12,
-              "stroke": "$primary",
-              "strokeWidth": 2.5,
-              "effect": {
-                "type": "shadow",
-                "shadowType": "outer",
-                "color": "#1F4032",
-                "offset": {
-                  "x": 0,
-                  "y": 2
-                }
-              },
-              "gap": 12,
-              "padding": [
-                0,
-                16
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon",
-                  "id": "N9Q9bM",
-                  "name": "Check",
-                  "width": 22,
-                  "height": 22,
-                  "icon": "circle-check",
-                  "library": "lucide",
-                  "fill": "#2E9E5B"
-                },
-                {
-                  "type": "text",
-                  "id": "zJbBR",
-                  "name": "Name",
-                  "fill": "$ink",
-                  "content": "ゆうき",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 18,
-                  "fontWeight": "normal"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "tZO2e",
-              "name": "Player あかね",
-              "width": "fill_container",
-              "height": 56,
-              "fill": "$card",
-              "cornerRadius": 12,
-              "stroke": "$primary",
-              "strokeWidth": 2.5,
-              "effect": {
-                "type": "shadow",
-                "shadowType": "outer",
-                "color": "#1F4032",
-                "offset": {
-                  "x": 0,
-                  "y": 2
-                }
-              },
-              "gap": 12,
-              "padding": [
-                0,
-                16
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon",
-                  "id": "hrgcQ",
-                  "name": "Check",
-                  "width": 22,
-                  "height": 22,
-                  "icon": "circle-check",
-                  "library": "lucide",
-                  "fill": "#2E9E5B"
-                },
-                {
-                  "type": "text",
-                  "id": "crawe",
-                  "name": "Name",
-                  "fill": "$ink",
-                  "content": "あかね",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 18,
-                  "fontWeight": "normal"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "mVFgJ",
-              "name": "Player けんた",
-              "width": "fill_container",
-              "height": 56,
-              "fill": "$card",
-              "cornerRadius": 12,
-              "stroke": "$primary",
-              "strokeWidth": 2.5,
-              "effect": {
-                "type": "shadow",
-                "shadowType": "outer",
-                "color": "#1F4032",
-                "offset": {
-                  "x": 0,
-                  "y": 2
-                }
-              },
-              "gap": 12,
-              "padding": [
-                0,
-                16
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon",
-                  "id": "f6wykb",
-                  "name": "Check",
-                  "width": 22,
-                  "height": 22,
-                  "icon": "circle-check",
-                  "library": "lucide",
-                  "fill": "#2E9E5B"
-                },
-                {
-                  "type": "text",
-                  "id": "nHXBH",
-                  "name": "Name",
-                  "fill": "$ink",
-                  "content": "けんた",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 18,
-                  "fontWeight": "normal"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "VXlPQ",
-              "name": "Player みさき",
-              "width": "fill_container",
-              "height": 56,
-              "fill": "$card",
-              "cornerRadius": 12,
-              "stroke": "$primary",
-              "strokeWidth": 2.5,
-              "effect": {
-                "type": "shadow",
-                "shadowType": "outer",
-                "color": "#1F4032",
-                "offset": {
-                  "x": 0,
-                  "y": 2
-                }
-              },
-              "gap": 12,
-              "padding": [
-                0,
-                16
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon",
-                  "id": "F4Fab0",
-                  "name": "Check",
-                  "width": 22,
-                  "height": 22,
-                  "icon": "circle-check",
-                  "library": "lucide",
-                  "fill": "#2E9E5B"
-                },
-                {
-                  "type": "text",
-                  "id": "MdzXd",
-                  "name": "Name",
-                  "fill": "$ink",
-                  "content": "みさき",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 18,
-                  "fontWeight": "normal"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "TH8NR",
-              "name": "Player さとる",
-              "width": "fill_container",
-              "height": 56,
-              "fill": "$card",
-              "cornerRadius": 12,
-              "stroke": "#E6DFCE",
-              "strokeWidth": 1.5,
-              "effect": {
-                "type": "shadow",
-                "shadowType": "outer",
-                "color": "#1F4032",
-                "offset": {
-                  "x": 0,
-                  "y": 2
-                }
-              },
-              "gap": 12,
-              "padding": [
-                0,
-                16
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon",
-                  "id": "Y68Aj",
-                  "name": "Check",
-                  "width": 22,
-                  "height": 22,
-                  "icon": "circle",
-                  "library": "lucide",
-                  "fill": "#A8A8A8"
-                },
-                {
-                  "type": "text",
-                  "id": "FinLv",
-                  "name": "Name",
-                  "fill": "$ink",
-                  "content": "さとる",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 18,
-                  "fontWeight": "normal"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "kTkrB",
-              "name": "Add Player",
-              "width": "fill_container",
-              "height": 52,
-              "cornerRadius": 12,
-              "stroke": "#C9D6C0",
-              "strokeWidth": 1.5,
-              "gap": 8,
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon",
-                  "id": "yiqxK",
-                  "name": "Plus",
-                  "width": 18,
-                  "height": 18,
-                  "icon": "plus",
-                  "library": "lucide",
-                  "fill": "#FDFBF2"
-                },
-                {
-                  "type": "text",
-                  "id": "zpEYw",
-                  "name": "Add Label",
-                  "fill": "#FDFBF2",
-                  "content": "新しいプレイヤーを登録",
-                  "fontFamily": "$font-ui",
-                  "fontSize": 15,
-                  "fontWeight": "normal"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "a76s0",
-          "name": "Bottom Actions",
-          "width": "fill_container",
-          "fill": "#24483A",
-          "stroke": "#4E7561",
-          "strokeWidth": {
-            "top": 2
-          },
-          "layout": "vertical",
-          "padding": [
-            16,
-            16,
-            28,
-            16
-          ],
-          "children": [
-            {
-              "id": "cETN5",
-              "type": "ref",
-              "ref": "Gw4ZS",
-              "name": "Next Button",
-              "width": "fill_container",
-              "descendants": {
-                "xLvhG": {
-                  "content": "4人で遊ぶ — 設定へ"
-                }
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "frame",
       "id": "hArbW",
       "x": 1350,
       "y": 1250,
@@ -8968,7 +8571,7 @@
     {
       "type": "frame",
       "id": "HQH5P",
-      "x": 900,
+      "x": 0,
       "y": 4350,
       "name": "PAUSE 一時中断（全画面ポーズ）",
       "clip": true,
@@ -9113,6 +8716,447 @@
                   "fontWeight": "normal"
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ogynD",
+      "x": 900,
+      "y": 1250,
+      "name": "S03 プレイヤー選択",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "$bg",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "PJepn",
+          "type": "ref",
+          "ref": "rLwx3",
+          "name": "Status Bar",
+          "width": "fill_container",
+          "fill": "#24483A"
+        },
+        {
+          "type": "frame",
+          "id": "e1d5Q",
+          "name": "Header",
+          "width": "fill_container",
+          "fill": "#24483A",
+          "stroke": "#4E7561",
+          "strokeWidth": {
+            "bottom": 2
+          },
+          "gap": 10,
+          "padding": [
+            8,
+            16,
+            14,
+            16
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon",
+              "id": "sG7u8",
+              "name": "Back",
+              "width": 22,
+              "height": 22,
+              "icon": "arrow-left",
+              "library": "lucide",
+              "fill": "#FDFBF2"
+            },
+            {
+              "type": "text",
+              "id": "mGlhO",
+              "name": "Title",
+              "fill": "#FDFBF2",
+              "content": "だれが遊ぶ？",
+              "fontFamily": "$font-ui",
+              "fontSize": 24,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "O0kHKC",
+          "name": "Main",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "padding": [
+            16,
+            16,
+            0,
+            16
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "ziW94",
+              "name": "Edit Row",
+              "width": "fill_container",
+              "justifyContent": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "lhDe7",
+                  "name": "Edit",
+                  "fill": "$primary",
+                  "content": "編集",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "R99Ip",
+              "name": "Row れい",
+              "width": "fill_container",
+              "height": 60,
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "$primary",
+              "strokeWidth": 2.5,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#1F4032",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                }
+              },
+              "gap": 12,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "i29lL",
+                  "name": "Name",
+                  "fill": "$ink",
+                  "content": "れい",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "jtlDY",
+                  "name": "Sp",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "icon",
+                  "id": "mF7Xy",
+                  "name": "Check",
+                  "width": 24,
+                  "height": 24,
+                  "icon": "circle-check",
+                  "library": "lucide",
+                  "fill": "$success"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "pNJQ4",
+              "name": "Row さや",
+              "width": "fill_container",
+              "height": 60,
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "$primary",
+              "strokeWidth": 2.5,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#1F4032",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                }
+              },
+              "gap": 12,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "U6xsvG",
+                  "name": "Name",
+                  "fill": "$ink",
+                  "content": "さや",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "AKiLC",
+                  "name": "Sp",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "icon",
+                  "id": "JeT3X",
+                  "name": "Check",
+                  "width": 24,
+                  "height": 24,
+                  "icon": "circle-check",
+                  "library": "lucide",
+                  "fill": "$success"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "GRSSd",
+              "name": "Row はんな",
+              "width": "fill_container",
+              "height": 60,
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "$primary",
+              "strokeWidth": 2.5,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#1F4032",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                }
+              },
+              "gap": 12,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "H5Wxb",
+                  "name": "Name",
+                  "fill": "$ink",
+                  "content": "はんな",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "vHxeG",
+                  "name": "Sp",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "icon",
+                  "id": "Q0ddh",
+                  "name": "Check",
+                  "width": 24,
+                  "height": 24,
+                  "icon": "circle-check",
+                  "library": "lucide",
+                  "fill": "$success"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "CkDib",
+              "name": "Row たろう",
+              "width": "fill_container",
+              "height": 60,
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "$primary",
+              "strokeWidth": 2.5,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#1F4032",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                }
+              },
+              "gap": 12,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "IcLt3",
+                  "name": "Name",
+                  "fill": "$ink",
+                  "content": "たろう",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "QeyYX",
+                  "name": "Sp",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "icon",
+                  "id": "QHXHm",
+                  "name": "Check",
+                  "width": 24,
+                  "height": 24,
+                  "icon": "circle-check",
+                  "library": "lucide",
+                  "fill": "$success"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "M1oV7",
+              "name": "Row じろう",
+              "width": "fill_container",
+              "height": 60,
+              "fill": "$card",
+              "cornerRadius": 14,
+              "stroke": "#E6DFCE",
+              "strokeWidth": 1.5,
+              "effect": {
+                "type": "shadow",
+                "shadowType": "outer",
+                "color": "#1F4032",
+                "offset": {
+                  "x": 0,
+                  "y": 2
+                }
+              },
+              "gap": 12,
+              "padding": [
+                0,
+                14
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "y99Rit",
+                  "name": "Name",
+                  "fill": "$ink",
+                  "content": "じろう",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "UYzaS",
+                  "name": "Sp",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "icon",
+                  "id": "y1otg",
+                  "name": "Check",
+                  "width": 24,
+                  "height": 24,
+                  "icon": "circle",
+                  "library": "lucide",
+                  "fill": "#D8D2C8"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "pUlvx",
+              "name": "Add Row",
+              "width": "fill_container",
+              "height": 56,
+              "cornerRadius": 14,
+              "stroke": "#7E9B85",
+              "strokeWidth": 2,
+              "gap": 8,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "m7NZq",
+                  "name": "Plus",
+                  "width": 18,
+                  "height": 18,
+                  "icon": "plus",
+                  "library": "lucide",
+                  "fill": "#C9D6C0"
+                },
+                {
+                  "type": "text",
+                  "id": "qOjzu",
+                  "name": "Add Label",
+                  "fill": "#C9D6C0",
+                  "content": "プレイヤーを追加",
+                  "fontFamily": "$font-ui",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "F20hs",
+          "name": "Bottom",
+          "width": "fill_container",
+          "fill": "#24483A",
+          "stroke": "#4E7561",
+          "strokeWidth": {
+            "top": 2
+          },
+          "layout": "vertical",
+          "padding": [
+            16,
+            16,
+            28,
+            16
+          ],
+          "children": [
+            {
+              "id": "fl8Tl",
+              "type": "ref",
+              "ref": "Gw4ZS",
+              "name": "Next",
+              "width": "fill_container",
+              "descendants": {
+                "xLvhG": {
+                  "content": "4人で遊ぶ — 設定へ"
+                }
+              }
             }
           ]
         }
