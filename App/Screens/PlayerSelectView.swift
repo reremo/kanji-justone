@@ -33,15 +33,12 @@ struct PlayerSelectView: View {
                 List {
                     ForEach(app.roster) { player in
                         playerRow(player)
-                            .listRowBackground(Color.clear)
+                            .listRowBackground(rowBackground(for: player))
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                            .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
                     }
                     .onMove { from, to in
                         app.movePlayers(fromOffsets: from, toOffset: to)
-                    }
-                    .onDelete { offsets in
-                        app.removePlayers(atOffsets: offsets)
                     }
                 }
                 .listStyle(.plain)
@@ -93,40 +90,62 @@ struct PlayerSelectView: View {
         }
     }
 
-    @ViewBuilder
-    private func playerRow(_ player: Player) -> some View {
+    /// 行の白カード背景（通常/編集で共通の見た目を保つ）
+    private func rowBackground(for player: Player) -> some View {
         let selected = app.selectedPlayerIDs.contains(player.id)
-        Button {
-            if editing {
-                renameTarget = player
-                renameText = player.name
-            } else {
-                Haptics.light()
-                app.toggleSelection(player.id)
-            }
-        } label: {
-            CardRow {
-                if !editing {
-                    Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                        .font(.system(size: 22))
-                        .foregroundStyle(selected ? Theme.success : Theme.inkDisabled)
-                }
-                Text(player.name)
-                    .font(Theme.font(18))
-                    .foregroundStyle(Theme.ink)
-                if editing {
-                    Spacer()
-                    Image(systemName: "pencil")
-                        .font(.system(size: 15))
-                        .foregroundStyle(Theme.inkSecondary)
-                }
-            }
+        return RoundedRectangle(cornerRadius: 12)
+            .fill(Theme.card)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
                     .strokeBorder(selected && !editing ? Theme.primary : .clear, lineWidth: 2.5)
             )
+            .padding(.vertical, 5)
+    }
+
+    @ViewBuilder
+    private func playerRow(_ player: Player) -> some View {
+        let selected = app.selectedPlayerIDs.contains(player.id)
+        HStack(spacing: 12) {
+            if editing {
+                Button {
+                    Haptics.light()
+                    if let index = app.roster.firstIndex(where: { $0.id == player.id }) {
+                        withAnimation { app.removePlayers(atOffsets: [index]) }
+                    }
+                } label: {
+                    Image(systemName: "trash.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundStyle(Theme.error)
+                }
+                .buttonStyle(.plain)
+            } else {
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 22))
+                    .foregroundStyle(selected ? Theme.success : Theme.inkDisabled)
+            }
+            Text(player.name)
+                .font(Theme.font(18))
+                .foregroundStyle(Theme.ink)
+            Spacer()
+            if editing {
+                Button {
+                    renameTarget = player
+                    renameText = player.name
+                } label: {
+                    Image(systemName: "pencil.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundStyle(Theme.primaryDark)
+                }
+                .buttonStyle(.plain)
+            }
         }
-        .buttonStyle(.plain)
+        .frame(minHeight: 34)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            guard !editing else { return }
+            Haptics.light()
+            app.toggleSelection(player.id)
+        }
         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
             Button(role: .destructive) {
                 if let index = app.roster.firstIndex(where: { $0.id == player.id }) {
