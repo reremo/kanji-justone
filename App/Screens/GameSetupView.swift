@@ -111,49 +111,37 @@ struct GameSetupView: View {
         }
     }
 
-    // ラウンド数（無料は上限2で🔒マークのみ、上限10で通常グレー）
+    // ラウンド数（無料は上限2に達した「＋」に🔒、有料は上限10で通常グレー）
     @ViewBuilder
     private var roundsRow: some View {
         let atFreeLimit = !app.purchased && app.rounds >= AppState.freeMaxRounds
         let atCap = app.rounds >= AppState.maxRoundsCap
         stepperCard(label: "ラウンド数", value: "\(app.rounds)",
-                    locked: !app.purchased,
-                    minusEnabled: app.rounds > 1, plusEnabled: !atFreeLimit && !atCap) {
+                    minusEnabled: app.rounds > 1, minusLocked: false,
+                    plusEnabled: !atFreeLimit && !atCap, plusLocked: atFreeLimit) {
             app.rounds = max(1, app.rounds - 1)
         } plus: {
             if !atFreeLimit && !atCap { app.rounds += 1 }
         }
     }
 
-    // ヒント文字数（無料は人数で固定・🔒マークのみ、有料は1〜5自由）
+    // ヒント文字数（無料は人数固定で −＋に🔒、有料は1〜5自由）
     @ViewBuilder
     private var charsRow: some View {
         if app.purchased {
             let atMax = app.charsPerPlayer >= 5
             stepperCard(label: "一人の文字数", value: "\(app.charsPerPlayer)",
-                        locked: false,
-                        minusEnabled: app.charsPerPlayer > 1, plusEnabled: !atMax) {
+                        minusEnabled: app.charsPerPlayer > 1, minusLocked: false,
+                        plusEnabled: !atMax, plusLocked: false) {
                 app.charsPerPlayer = max(1, app.charsPerPlayer - 1)
             } plus: {
                 if !atMax { app.charsPerPlayer += 1 }
             }
         } else {
-            // 無料: 人数で自動決定。値のみ表示し🔒マーク（タップ誘導はしない）
-            CardRow {
-                Text("一人の文字数")
-                    .font(Theme.font(15))
-                    .foregroundStyle(Theme.ink)
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 13))
-                    .foregroundStyle(Theme.inkSecondary)
-                Spacer()
-                Text("\(app.effectiveCharsPerPlayer)文字")
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .foregroundStyle(Theme.ink)
-                Text("（\(app.selectedPlayers.count)人）")
-                    .font(Theme.font(12))
-                    .foregroundStyle(Theme.inkSecondary)
-            }
+            // 無料: 人数で自動決定。ステッパー形のまま −＋を🔒表示（操作不可）
+            stepperCard(label: "一人の文字数", value: "\(app.effectiveCharsPerPlayer)",
+                        minusEnabled: false, minusLocked: true,
+                        plusEnabled: false, plusLocked: true) {} plus: {}
         }
     }
 
@@ -182,37 +170,46 @@ struct GameSetupView: View {
     }
 
     @ViewBuilder
-    private func stepperCard(label: String, value: String, locked: Bool, minusEnabled: Bool, plusEnabled: Bool,
+    private func stepperCard(label: String, value: String,
+                             minusEnabled: Bool, minusLocked: Bool,
+                             plusEnabled: Bool, plusLocked: Bool,
                              minus: @escaping () -> Void, plus: @escaping () -> Void) -> some View {
         CardRow {
             Text(label)
                 .font(Theme.font(15))
                 .foregroundStyle(Theme.ink)
-            if locked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 13))
-                    .foregroundStyle(Theme.inkSecondary)
-            }
             Spacer()
-            Button(action: minus) {
-                Image(systemName: "minus.circle")
-                    .font(.system(size: 26))
-                    .foregroundStyle(minusEnabled ? Theme.inkSecondary : Theme.inkDisabled)
-            }
-            .buttonStyle(.pressable)
-            .disabled(!minusEnabled)
+            stepButton(icon: "minus.circle", tint: Theme.inkSecondary,
+                       enabled: minusEnabled, locked: minusLocked, action: minus)
             Text(value)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
                 .frame(minWidth: 28)
-            Button(action: plus) {
-                Image(systemName: "plus.circle")
-                    .font(.system(size: 26))
-                    .foregroundStyle(plusEnabled ? Theme.primaryDark : Theme.inkDisabled)
-            }
-            .buttonStyle(.pressable)
-            .disabled(!plusEnabled)
+            stepButton(icon: "plus.circle", tint: Theme.primaryDark,
+                       enabled: plusEnabled, locked: plusLocked, action: plus)
         }
+    }
+
+    /// ステッパーの −／＋ ボタン。locked時はアイコン右上に🔒を重ねて操作不可
+    private func stepButton(icon: String, tint: Color, enabled: Bool, locked: Bool,
+                            action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            ZStack(alignment: .topTrailing) {
+                Image(systemName: icon)
+                    .font(.system(size: 26))
+                    .foregroundStyle(enabled ? tint : Theme.inkDisabled)
+                if locked {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 10))
+                        .foregroundStyle(Theme.ink)
+                        .padding(2)
+                        .background(Circle().fill(Theme.primary))
+                        .offset(x: 5, y: -5)
+                }
+            }
+        }
+        .buttonStyle(.pressable)
+        .disabled(!enabled)
     }
 
     @ViewBuilder
