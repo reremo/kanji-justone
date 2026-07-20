@@ -51,6 +51,9 @@ struct GameSetupView: View {
                             answererChips
                         }
                     }
+                    if !app.purchased {
+                        premiumLink
+                    }
                     if let startError {
                         Text(startError)
                             .font(Theme.font(13))
@@ -108,70 +111,88 @@ struct GameSetupView: View {
         }
     }
 
-    /// プラスボタンの状態
-    private enum PlusState { case enabled, premium, disabled }
-
-    // ラウンド数（無料は上限2で+が🔒プレミア、上限10で+グレー）
+    // ラウンド数（無料は上限2で🔒マークのみ、上限10で通常グレー）
     @ViewBuilder
     private var roundsRow: some View {
         let atFreeLimit = !app.purchased && app.rounds >= AppState.freeMaxRounds
         let atCap = app.rounds >= AppState.maxRoundsCap
-        let plusState: PlusState = atCap ? .disabled : (atFreeLimit ? .premium : .enabled)
         stepperCard(label: "ラウンド数", value: "\(app.rounds)",
-                    minusEnabled: app.rounds > 1, plusState: plusState) {
+                    locked: !app.purchased,
+                    minusEnabled: app.rounds > 1, plusEnabled: !atFreeLimit && !atCap) {
             app.rounds = max(1, app.rounds - 1)
         } plus: {
-            switch plusState {
-            case .enabled: app.rounds += 1
-            case .premium: path.append(HomeRoute.shop)
-            case .disabled: break
-            }
+            if !atFreeLimit && !atCap { app.rounds += 1 }
         }
     }
 
-    // ヒント文字数（無料は人数で固定・変更不可で🔒、有料は1〜3自由）
+    // ヒント文字数（無料は人数で固定・🔒マークのみ、有料は1〜5自由）
     @ViewBuilder
     private var charsRow: some View {
         if app.purchased {
             let atMax = app.charsPerPlayer >= 5
             stepperCard(label: "一人の文字数", value: "\(app.charsPerPlayer)",
-                        minusEnabled: app.charsPerPlayer > 1, plusState: atMax ? .disabled : .enabled) {
+                        locked: false,
+                        minusEnabled: app.charsPerPlayer > 1, plusEnabled: !atMax) {
                 app.charsPerPlayer = max(1, app.charsPerPlayer - 1)
             } plus: {
                 if !atMax { app.charsPerPlayer += 1 }
             }
         } else {
-            // 無料: 人数で自動決定。値のみ表示し、＋−の代わりに🔒でショップ誘導
-            Button {
-                path.append(HomeRoute.shop)
-            } label: {
-                CardRow {
-                    Text("一人の文字数")
-                        .font(Theme.font(15))
-                        .foregroundStyle(Theme.ink)
-                    Image(systemName: "lock.fill")
-                        .font(.system(size: 13))
-                        .foregroundStyle(Theme.primaryDark)
-                    Spacer()
-                    Text("\(app.effectiveCharsPerPlayer)文字")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Theme.ink)
-                    Text("（\(app.selectedPlayers.count)人）")
-                        .font(Theme.font(12))
-                        .foregroundStyle(Theme.inkSecondary)
-                }
+            // 無料: 人数で自動決定。値のみ表示し🔒マーク（タップ誘導はしない）
+            CardRow {
+                Text("一人の文字数")
+                    .font(Theme.font(15))
+                    .foregroundStyle(Theme.ink)
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.inkSecondary)
+                Spacer()
+                Text("\(app.effectiveCharsPerPlayer)文字")
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .foregroundStyle(Theme.ink)
+                Text("（\(app.selectedPlayers.count)人）")
+                    .font(Theme.font(12))
+                    .foregroundStyle(Theme.inkSecondary)
             }
-            .buttonStyle(.pressable)
         }
     }
 
+    // 下部にまとめたプレミア導線（未購入時のみ）
+    private var premiumLink: some View {
+        Button {
+            path.append(HomeRoute.shop)
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 14))
+                Text("ラウンド数や文字数を増やすには 買い切りで解除")
+                    .font(Theme.font(13))
+                    .multilineTextAlignment(.leading)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12))
+            }
+            .foregroundStyle(Theme.chalk)
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Capsule().strokeBorder(Theme.primary, lineWidth: 1.5))
+        }
+        .buttonStyle(.pressable)
+    }
+
     @ViewBuilder
-    private func stepperCard(label: String, value: String, minusEnabled: Bool, plusState: PlusState,
+    private func stepperCard(label: String, value: String, locked: Bool, minusEnabled: Bool, plusEnabled: Bool,
                              minus: @escaping () -> Void, plus: @escaping () -> Void) -> some View {
         CardRow {
             Text(label)
                 .font(Theme.font(15))
                 .foregroundStyle(Theme.ink)
+            if locked {
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 13))
+                    .foregroundStyle(Theme.inkSecondary)
+            }
             Spacer()
             Button(action: minus) {
                 Image(systemName: "minus.circle")
@@ -185,22 +206,12 @@ struct GameSetupView: View {
                 .foregroundStyle(Theme.ink)
                 .frame(minWidth: 28)
             Button(action: plus) {
-                ZStack(alignment: .topTrailing) {
-                    Image(systemName: "plus.circle")
-                        .font(.system(size: 26))
-                        .foregroundStyle(plusState == .disabled ? Theme.inkDisabled : Theme.primaryDark)
-                    if plusState == .premium {
-                        Image(systemName: "lock.fill")
-                            .font(.system(size: 11))
-                            .foregroundStyle(Theme.ink)
-                            .padding(2)
-                            .background(Circle().fill(Theme.primary))
-                            .offset(x: 6, y: -6)
-                    }
-                }
+                Image(systemName: "plus.circle")
+                    .font(.system(size: 26))
+                    .foregroundStyle(plusEnabled ? Theme.primaryDark : Theme.inkDisabled)
             }
             .buttonStyle(.pressable)
-            .disabled(plusState == .disabled)
+            .disabled(!plusEnabled)
         }
     }
 
