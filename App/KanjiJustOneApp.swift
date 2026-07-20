@@ -2,14 +2,14 @@ import SwiftUI
 
 @main
 struct KanjiJustOneApp: App {
-    @State private var session = GameSession()
+    @State private var appState = AppState()
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
             ZStack {
-                ContentView()
-                    .environment(session)
+                RootView()
+                    .environment(appState)
                 // 秘匿情報の表示中にAppスイッチャーへ内容が写らないようにする
                 if scenePhase != .active && isSecretPhase {
                     Theme.boardDark.ignoresSafeArea()
@@ -19,7 +19,7 @@ struct KanjiJustOneApp: App {
     }
 
     private var isSecretPhase: Bool {
-        switch session.engine.phase {
+        switch appState.gameSession?.engine.phase {
         case .topicReveal, .hintInput, .hintConfirm, .judge: true
         default: false
         }
