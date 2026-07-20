@@ -1,0 +1,31 @@
+name: KanjiJustOne
+options:
+  bundleIdPrefix: com.reremo
+  deploymentTarget:
+    iOS: "17.0"
+packages:
+  KanjiCore:
+    path: Packages/KanjiCore
+targets:
+  KanjiJustOne:
+    type: application
+    platform: iOS
+    sources:
+      - App
+    dependencies:
+      - package: KanjiCore
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "5.9"
+        GENERATE_INFOPLIST_FILE: NO
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: 漢字ジャストワン
+        UILaunchScreen: {}
+        UIAppFonts:
+          - KosugiMaru-Regular.ttf
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        ITSAppUsesNonExemptEncryption: false

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "topics": [
+    { "id": "dev-001", "text": "観覧車", "furigana": "かんらんしゃ", "difficulty": "normal" },
+    { "id": "dev-002", "text": "こたつ", "furigana": "こたつ", "difficulty": "easy" },
+    { "id": "dev-003", "text": "花火大会", "furigana": "はなびたいかい", "difficulty": "easy" },
+    { "id": "dev-004", "text": "しんきろう", "furigana": "しんきろう", "difficulty": "hard" },
+    { "id": "dev-005", "text": "ラーメン", "furigana": "らーめん", "difficulty": "easy" },
+    { "id": "dev-006", "text": "図書館", "furigana": "としょかん", "difficulty": "normal" },
+    { "id": "dev-007", "text": "うちゅうひこうし", "furigana": "うちゅうひこうし", "difficulty": "normal" },
+    { "id": "dev-008", "text": "オーロラ", "furigana": "おーろら", "difficulty": "hard" },
+    { "id": "dev-009", "text": "しゃぼん玉", "furigana": "しゃぼんだま", "difficulty": "easy" },
+    { "id": "dev-010", "text": "初詣", "furigana": "はつもうで", "difficulty": "normal" }
+  ]
+}
