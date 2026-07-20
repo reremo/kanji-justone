@@ -4,6 +4,7 @@ import KanjiCore
 /// S14 中間スコア（簡易版）
 struct RoundResultView: View {
     @Environment(GameSession.self) private var session
+    @Environment(AppState.self) private var app
 
     var body: some View {
         let engine = session.engine
@@ -15,7 +16,13 @@ struct RoundResultView: View {
             ScoreListView(engine: engine)
         } actions: {
             ChalkButton(title: "ラウンド \(engine.roundNumber + 1) へ！") {
-                session.update { $0.proceedFromRoundResult() }
+                let proceed = { session.update { $0.proceedFromRoundResult() } }
+                if app.purchased {
+                    proceed()
+                } else {
+                    // 無料版はラウンド結果の後にインタースティシャル（要件準拠）
+                    app.ads.showInterstitial(completion: proceed)
+                }
             }
         }
     }

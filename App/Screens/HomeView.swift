@@ -45,7 +45,11 @@ struct HomeView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, 32)
+            .padding(.bottom, 16)
+            if !app.purchased && app.ads.ready {
+                BannerAdView()
+                    .frame(height: 60)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Theme.board.ignoresSafeArea())

@@ -6,6 +6,9 @@ options:
 packages:
   KanjiCore:
     path: Packages/KanjiCore
+  GoogleMobileAds:
+    url: https://github.com/googleads/swift-package-manager-google-mobile-ads.git
+    from: 12.0.0
 targets:
   KanjiJustOne:
     type: application
@@ -14,6 +17,8 @@ targets:
       - App
     dependencies:
       - package: KanjiCore
+      - package: GoogleMobileAds
+        product: GoogleMobileAds
     settings:
       base:
         TARGETED_DEVICE_FAMILY: "1"
@@ -31,6 +36,10 @@ targets:
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         ITSAppUsesNonExemptEncryption: false
+        # AdMob（開発中はGoogle公式のテストApp ID。リリース時に自分のIDへ差し替える）
+        GADApplicationIdentifier: ca-app-pub-3940256099942544~1458002511
+        SKAdNetworkItems:
+          - SKAdNetworkIdentifier: cstr6suwn9.skadnetwork
 schemes:
   KanjiJustOne:
     build:

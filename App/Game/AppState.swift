@@ -29,6 +29,7 @@ final class AppState {
     var purchased: Bool { didSet { defaults.set(purchased, forKey: Keys.purchased) } }
     var soundOn: Bool { didSet { defaults.set(soundOn, forKey: Keys.sound) } }
     let store = StoreManager()
+    let ads = AdsManager()
 
     // 進行中ゲーム
     var gameSession: GameSession?
@@ -58,6 +59,9 @@ final class AppState {
             self?.purchased = owned
         }
         store.start()
+        if !purchased {
+            ads.start()
+        }
     }
 
     // MARK: - プレイヤー台帳
