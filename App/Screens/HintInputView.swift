@@ -18,14 +18,17 @@ struct HintInputView: View {
                 Text("\(name)さんの ヒントを入力（漢字\(count)文字）")
                     .font(Theme.font(17))
                     .foregroundStyle(Theme.chalk)
-                HStack(spacing: 20) {
+                // 文字数が多いときは枠を小さくして折り返す（最大5文字対応）
+                let box: CGFloat = count <= 3 ? 96 : 72
+                let columns = [GridItem(.adaptive(minimum: box), spacing: 12, alignment: .center)]
+                LazyVGrid(columns: columns, spacing: 10) {
                     ForEach(0..<count, id: \.self) { i in
                         VStack(spacing: 6) {
                             TextField("", text: binding(for: i))
-                                .font(Theme.font(48))
+                                .font(Theme.font(box * 0.5))
                                 .foregroundStyle(Theme.ink)
                                 .multilineTextAlignment(.center)
-                                .frame(width: 96, height: 96)
+                                .frame(width: box, height: box)
                                 .background(
                                     RoundedRectangle(cornerRadius: 14)
                                         .fill(Theme.card)

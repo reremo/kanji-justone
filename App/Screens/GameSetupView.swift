@@ -12,16 +12,8 @@ struct GameSetupView: View {
         NavScreen(title: "ゲーム設定") {
             ScrollView {
                 VStack(spacing: 12) {
-                    stepperRow(label: "ラウンド数", value: app.rounds, locked: !app.purchased && app.rounds >= AppState.freeMaxRounds) {
-                        app.rounds = max(1, app.rounds - 1)
-                    } plus: {
-                        app.rounds = min(app.maxRounds, app.rounds + 1)
-                    }
-                    stepperRow(label: "一人の文字数", value: app.charsPerPlayer, locked: !app.purchased) {
-                        if app.purchased { app.charsPerPlayer = max(1, app.charsPerPlayer - 1) }
-                    } plus: {
-                        if app.purchased { app.charsPerPlayer = min(3, app.charsPerPlayer + 1) }
-                    }
+                    roundsRow
+                    charsRow
                     segmentCard(label: "お題") {
                         segment(items: [("通常お題", !app.useCustomTopics, false),
                                         ("自作お題", app.useCustomTopics, !app.purchased)]) { index in
@@ -58,6 +50,9 @@ struct GameSetupView: View {
                                 .foregroundStyle(Theme.inkSecondary)
                             answererChips
                         }
+                    }
+                    if !app.purchased {
+                        premiumLink
                     }
                     if let startError {
                         Text(startError)
@@ -116,35 +111,105 @@ struct GameSetupView: View {
         }
     }
 
+    // ラウンド数（無料は上限2に達した「＋」に🔒、有料は上限10で通常グレー）
     @ViewBuilder
-    private func stepperRow(label: String, value: Int, locked: Bool, minus: @escaping () -> Void, plus: @escaping () -> Void) -> some View {
+    private var roundsRow: some View {
+        let atFreeLimit = !app.purchased && app.rounds >= AppState.freeMaxRounds
+        let atCap = app.rounds >= AppState.maxRoundsCap
+        stepperCard(label: "ラウンド数", value: "\(app.rounds)",
+                    minusEnabled: app.rounds > 1, minusLocked: false,
+                    plusEnabled: !atFreeLimit && !atCap, plusLocked: atFreeLimit) {
+            app.rounds = max(1, app.rounds - 1)
+        } plus: {
+            if !atFreeLimit && !atCap { app.rounds += 1 }
+        }
+    }
+
+    // ヒント文字数（無料は人数固定で −＋に🔒、有料は1〜5自由）
+    @ViewBuilder
+    private var charsRow: some View {
+        if app.purchased {
+            let atMax = app.charsPerPlayer >= 5
+            stepperCard(label: "一人の文字数", value: "\(app.charsPerPlayer)",
+                        minusEnabled: app.charsPerPlayer > 1, minusLocked: false,
+                        plusEnabled: !atMax, plusLocked: false) {
+                app.charsPerPlayer = max(1, app.charsPerPlayer - 1)
+            } plus: {
+                if !atMax { app.charsPerPlayer += 1 }
+            }
+        } else {
+            // 無料: 人数で自動決定。ステッパー形のまま −＋を🔒表示（操作不可）
+            stepperCard(label: "一人の文字数", value: "\(app.effectiveCharsPerPlayer)",
+                        minusEnabled: false, minusLocked: true,
+                        plusEnabled: false, plusLocked: true) {} plus: {}
+        }
+    }
+
+    // 下部にまとめたプレミア導線（未購入時のみ）
+    private var premiumLink: some View {
+        Button {
+            path.append(HomeRoute.shop)
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 14))
+                Text("ラウンド数や文字数を増やすには 買い切りで解除")
+                    .font(Theme.font(13))
+                    .multilineTextAlignment(.leading)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12))
+            }
+            .foregroundStyle(Theme.chalk)
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Capsule().strokeBorder(Theme.primary, lineWidth: 1.5))
+        }
+        .buttonStyle(.pressable)
+    }
+
+    @ViewBuilder
+    private func stepperCard(label: String, value: String,
+                             minusEnabled: Bool, minusLocked: Bool,
+                             plusEnabled: Bool, plusLocked: Bool,
+                             minus: @escaping () -> Void, plus: @escaping () -> Void) -> some View {
         CardRow {
             Text(label)
                 .font(Theme.font(15))
                 .foregroundStyle(Theme.ink)
-            if locked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 13))
-                    .foregroundStyle(Theme.inkSecondary)
-            }
             Spacer()
-            Button(action: minus) {
-                Image(systemName: "minus.circle")
-                    .font(.system(size: 26))
-                    .foregroundStyle(Theme.inkSecondary)
-            }
-            .buttonStyle(.pressable)
-            Text("\(value)")
+            stepButton(icon: "minus.circle", tint: Theme.inkSecondary,
+                       enabled: minusEnabled, locked: minusLocked, action: minus)
+            Text(value)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
                 .frame(minWidth: 28)
-            Button(action: plus) {
-                Image(systemName: "plus.circle")
-                    .font(.system(size: 26))
-                    .foregroundStyle(Theme.primaryDark)
-            }
-            .buttonStyle(.pressable)
+            stepButton(icon: "plus.circle", tint: Theme.primaryDark,
+                       enabled: plusEnabled, locked: plusLocked, action: plus)
         }
+    }
+
+    /// ステッパーの −／＋ ボタン。locked時はアイコン右上に🔒を重ねて操作不可
+    private func stepButton(icon: String, tint: Color, enabled: Bool, locked: Bool,
+                            action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            ZStack(alignment: .topTrailing) {
+                Image(systemName: icon)
+                    .font(.system(size: 26))
+                    .foregroundStyle(enabled ? tint : Theme.inkDisabled)
+                if locked {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 10))
+                        .foregroundStyle(Theme.ink)
+                        .padding(2)
+                        .background(Circle().fill(Theme.primary))
+                        .offset(x: 5, y: -5)
+                }
+            }
+        }
+        .buttonStyle(.pressable)
+        .disabled(!enabled)
     }
 
     @ViewBuilder
