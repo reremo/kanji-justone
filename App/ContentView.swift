@@ -3,6 +3,7 @@ import KanjiCore
 
 struct ContentView: View {
     @Environment(GameSession.self) private var session
+    @State private var showPause = false
 
     var body: some View {
         Group {
@@ -23,5 +24,20 @@ struct ContentView: View {
             }
         }
         .animation(.easeInOut(duration: 0.25), value: session.engine.phase)
+        .overlay(alignment: .topTrailing) {
+            Button {
+                showPause = true
+            } label: {
+                Image(systemName: "pause.circle.fill")
+                    .font(.system(size: 28))
+                    .foregroundStyle(Theme.chalkFaded)
+            }
+            .buttonStyle(.plain)
+            .padding(.trailing, 14)
+            .padding(.top, 6)
+        }
+        .sheet(isPresented: $showPause) {
+            PauseMenuView()
+        }
     }
 }

@@ -33,6 +33,9 @@ final class AppState {
 
     // 進行中ゲーム
     var gameSession: GameSession?
+    // 中断中ゲーム（v1はアプリ起動中のみ保持。完全終了で消える）
+    private(set) var suspendedSession: GameSession?
+    private var suspendedTurns: [TurnRecord] = []
 
     private let defaults = UserDefaults.standard
     private enum Keys {
@@ -136,6 +139,34 @@ final class AppState {
     }
 
     func endGame() {
+        gameSession = nil
+        pendingTurns = []
+    }
+
+    // MARK: - 中断・再開
+
+    /// 進行を保持したままホームへ戻る
+    func suspendGame() {
+        suspendedSession = gameSession
+        suspendedTurns = pendingTurns
+        gameSession = nil
+        pendingTurns = []
+    }
+
+    func resumeGame() {
+        pendingTurns = suspendedTurns
+        gameSession = suspendedSession
+        suspendedSession = nil
+        suspendedTurns = []
+    }
+
+    func discardSuspendedGame() {
+        suspendedSession = nil
+        suspendedTurns = []
+    }
+
+    /// 進行を破棄して終了（記録には残さない）
+    func abandonGame() {
         gameSession = nil
         pendingTurns = []
     }
