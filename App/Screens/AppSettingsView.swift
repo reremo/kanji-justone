@@ -3,6 +3,7 @@ import SwiftUI
 /// S20 アプリ設定
 struct AppSettingsView: View {
     @Environment(AppState.self) private var app
+    @Binding var path: NavigationPath
 
     var body: some View {
         @Bindable var app = app
@@ -23,8 +24,10 @@ struct AppSettingsView: View {
                     linkRow("購入の復元")
                 }
                 .buttonStyle(.pressable)
-                linkRow("利用規約")
-                linkRow("プライバシーポリシー")
+                Button { path.append(HomeRoute.terms) } label: { linkRow("利用規約") }
+                    .buttonStyle(.pressable)
+                Button { path.append(HomeRoute.privacy) } label: { linkRow("プライバシーポリシー") }
+                    .buttonStyle(.pressable)
                 Text("漢字ジャストワン v0.1.0（開発版）")
                     .font(.system(size: 12, design: .rounded))
                     .foregroundStyle(Theme.chalkFaded)

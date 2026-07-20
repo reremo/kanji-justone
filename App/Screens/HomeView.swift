@@ -3,6 +3,7 @@ import SwiftUI
 enum HomeRoute: Hashable {
     case howTo, players, setup, topicList, history, stats, shop, appSettings
     case historyDetail(GameRecord)
+    case terms, privacy
 }
 
 /// S01 ホーム
