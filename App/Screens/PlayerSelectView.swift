@@ -32,9 +32,9 @@ struct PlayerSelectView: View {
                 List {
                     ForEach(app.roster) { player in
                         playerRow(player)
-                            .listRowBackground(rowBackground(for: player))
+                            .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                            .listRowInsets(EdgeInsets(top: 7, leading: 16, bottom: 7, trailing: 16))
                     }
                     .onMove { from, to in
                         app.movePlayers(fromOffsets: from, toOffset: to)
@@ -94,17 +94,6 @@ struct PlayerSelectView: View {
         newName = ""
     }
 
-    /// 行の背景（選択は薄い黄ハイライト。枠は常に細い縁で、隣接カードが詰まって見えないように）
-    private func rowBackground(for player: Player) -> some View {
-        let selected = app.selectedPlayerIDs.contains(player.id) && !editing
-        return RoundedRectangle(cornerRadius: 14)
-            .fill(selected ? Theme.primaryLight : Theme.card)
-            .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .strokeBorder(Theme.tileBorder, lineWidth: 1.5)
-            )
-    }
-
     @ViewBuilder
     private func playerRow(_ player: Player) -> some View {
         let selected = app.selectedPlayerIDs.contains(player.id)
@@ -143,11 +132,15 @@ struct PlayerSelectView: View {
             }
         }
         .padding(.horizontal, 18)
-        .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
-        // ドラッグ中のプレビューは listRowBackground を含まないため、コンテンツ側にも同じ背景を重ねる
+        .frame(maxWidth: .infinity, minHeight: 56, alignment: .leading)
+        // 背景はコンテンツ側にのみ持たせる（listRowBackgroundだと余白まで塗られてカード間が詰まる）
         .background(
             RoundedRectangle(cornerRadius: 14)
                 .fill(selected && !editing ? Theme.primaryLight : Theme.card)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(Theme.tileBorder, lineWidth: 1.5)
+                )
         )
         .contentShape(Rectangle())
         .onTapGesture {
