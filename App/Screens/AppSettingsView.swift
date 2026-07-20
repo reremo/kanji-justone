@@ -17,7 +17,12 @@ struct AppSettingsView: View {
                         .labelsHidden()
                         .tint(Theme.primaryDark)
                 }
-                linkRow("購入の復元")
+                Button {
+                    Task { await app.store.restore() }
+                } label: {
+                    linkRow("購入の復元")
+                }
+                .buttonStyle(.plain)
                 linkRow("利用規約")
                 linkRow("プライバシーポリシー")
                 Text("漢字ジャストワン v0.1.0（開発版）")

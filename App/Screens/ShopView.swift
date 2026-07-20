@@ -24,9 +24,16 @@ struct ShopView: View {
                         feature("ヒントの文字数を変えられる")
                         feature("通常お題 全部＋自作お題モード")
                     }
-                    Text("¥600")
+                    Text(app.store.product?.displayPrice ?? "¥600")
                         .font(.system(size: 34, weight: .bold, design: .rounded))
                         .foregroundStyle(Theme.primaryDark)
+                    if let error = app.store.lastError {
+                        Text(error)
+                            .font(Theme.font(12))
+                            .foregroundStyle(Theme.error)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 16)
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 28)
@@ -46,11 +53,12 @@ struct ShopView: View {
                     .foregroundStyle(Theme.chalkFaded)
                     .frame(height: 44)
             } else {
-                ChalkButton(title: "¥600 で 全部解除") {
-                    app.purchased = true // TODO: StoreKit 2 連携（後続機能）
+                ChalkButton(title: "\(app.store.product?.displayPrice ?? "¥600") で 全部解除",
+                            enabled: app.store.product != nil && !app.store.purchasing) {
+                    Task { await app.store.purchase() }
                 }
                 Button {
-                    // TODO: StoreKit 2 の購入復元（後続機能）
+                    Task { await app.store.restore() }
                 } label: {
                     Text("購入を復元する")
                         .font(Theme.font(14))

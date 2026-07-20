@@ -4,6 +4,7 @@ import KanjiCore
 
 /// アプリ全体の状態（プレイヤー台帳・お題・記録・購入状態）。
 /// v1のMVPでは UserDefaults に Codable JSON で永続化する（SwiftData移行は後続）。
+@MainActor
 @Observable
 final class AppState {
     // プレイヤー台帳
@@ -27,6 +28,8 @@ final class AppState {
     private(set) var records: [GameRecord]
     var purchased: Bool { didSet { defaults.set(purchased, forKey: Keys.purchased) } }
     var soundOn: Bool { didSet { defaults.set(soundOn, forKey: Keys.sound) } }
+    let store = StoreManager()
+    let ads = AdsManager()
 
     // 進行中ゲーム
     var gameSession: GameSession?
@@ -51,6 +54,14 @@ final class AppState {
         records = Self.load([GameRecord].self, key: Keys.records) ?? []
         purchased = UserDefaults.standard.bool(forKey: Keys.purchased)
         soundOn = UserDefaults.standard.object(forKey: Keys.sound) as? Bool ?? true
+
+        store.onEntitlementChange = { [weak self] owned in
+            self?.purchased = owned
+        }
+        store.start()
+        if !purchased {
+            ads.start()
+        }
     }
 
     // MARK: - プレイヤー台帳
