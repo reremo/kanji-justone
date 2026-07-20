@@ -116,7 +116,7 @@ struct GameSetupView: View {
                     .font(.system(size: 26))
                     .foregroundStyle(Theme.inkSecondary)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.pressable)
             Text("\(value)")
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
@@ -126,7 +126,7 @@ struct GameSetupView: View {
                     .font(.system(size: 26))
                     .foregroundStyle(Theme.primaryDark)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.pressable)
         }
     }
 
@@ -165,7 +165,7 @@ struct GameSetupView: View {
                     .frame(height: 40)
                     .background(Capsule().fill(item.1 ? Theme.primary : Theme.tileDeletedBg))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
             }
         }
     }

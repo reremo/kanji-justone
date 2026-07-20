@@ -51,7 +51,7 @@ struct StatsView: View {
                                                 }
                                             }
                                     }
-                                    .buttonStyle(.plain)
+                                    .buttonStyle(.pressable)
                                 }
                             }
                         }

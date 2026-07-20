@@ -85,6 +85,6 @@ struct HomeView: View {
                 .frame(height: 48)
                 .background(Capsule().strokeBorder(Theme.chalkFaded, lineWidth: 1.5))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(.pressable)
     }
 }

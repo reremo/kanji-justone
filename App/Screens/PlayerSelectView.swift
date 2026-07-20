@@ -30,7 +30,7 @@ struct PlayerSelectView: View {
                                 .padding(.horizontal, 8)
                                 .contentShape(Rectangle())
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(.pressable)
                     }
                     .padding(.horizontal, 16)
                     .padding(.bottom, 2)
@@ -77,7 +77,7 @@ struct PlayerSelectView: View {
                         .frame(width: 52, height: 52)
                         .background(Circle().fill(Theme.primary))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
                 .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
             }
             ChalkButton(title: count >= 3 ? "\(count)人で遊ぶ — 設定へ" : "3人以上えらんでください",
@@ -126,7 +126,7 @@ struct PlayerSelectView: View {
                         .font(.system(size: 24))
                         .foregroundStyle(Theme.error)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
             } else {
                 Image(systemName: selected ? "checkmark.circle.fill" : "circle")
                     .font(.system(size: 24))
@@ -146,7 +146,7 @@ struct PlayerSelectView: View {
                         .font(.system(size: 24))
                         .foregroundStyle(Theme.primaryDark)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
             } else {
                 Image(systemName: "line.3.horizontal")
                     .font(.system(size: 18))

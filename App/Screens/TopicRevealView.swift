@@ -40,7 +40,7 @@ struct TopicRevealView: View {
                         .font(Theme.font(15))
                         .foregroundStyle(Theme.primary)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
                 Label("回答者には 絶対に見せないでください", systemImage: "eye.slash")
                     .font(Theme.font(13))
                     .foregroundStyle(Theme.chalkFaded)

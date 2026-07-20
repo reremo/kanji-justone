@@ -26,7 +26,7 @@ struct HistoryView: View {
                             } label: {
                                 recordRow(record)
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(.pressable)
                         }
                         Button {
                             path.append(HomeRoute.stats)
@@ -38,7 +38,7 @@ struct HistoryView: View {
                                 .frame(height: 48)
                                 .background(Capsule().strokeBorder(Theme.chalkFaded, lineWidth: 1.5))
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(.pressable)
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 20)

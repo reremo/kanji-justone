@@ -32,7 +32,7 @@ struct ContentView: View {
                     .font(.system(size: 28))
                     .foregroundStyle(Theme.chalkFaded)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.pressable)
             .padding(.trailing, 14)
             .padding(.top, 6)
         }

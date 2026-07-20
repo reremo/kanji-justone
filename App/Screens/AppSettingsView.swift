@@ -22,7 +22,7 @@ struct AppSettingsView: View {
                 } label: {
                     linkRow("購入の復元")
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.pressable)
                 linkRow("利用規約")
                 linkRow("プライバシーポリシー")
                 Text("漢字ジャストワン v0.1.0（開発版）")
