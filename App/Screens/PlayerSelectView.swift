@@ -19,12 +19,17 @@ struct PlayerSelectView: View {
                 if !app.roster.isEmpty {
                     HStack {
                         Spacer()
-                        Button(editing ? "完了" : "編集") {
+                        Button {
                             Haptics.light()
                             editing.toggle()
+                        } label: {
+                            Text(editing ? "完了" : "編集")
+                                .font(Theme.font(15))
+                                .foregroundStyle(Theme.primary)
+                                .padding(.vertical, 6)
+                                .padding(.horizontal, 8)
+                                .contentShape(Rectangle())
                         }
-                        .font(Theme.font(14))
-                        .foregroundStyle(Theme.primary)
                         .buttonStyle(.plain)
                     }
                     .padding(.horizontal, 16)
@@ -39,13 +44,14 @@ struct PlayerSelectView: View {
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(EdgeInsets(top: 7, leading: 16, bottom: 7, trailing: 16))
                         }
+                        // システムのドラッグハンドル（カード外の緑地に出て見えない）を使わず、
+                        // カード全体を長押しして並び替える
                         .onMove { from, to in
                             app.movePlayers(fromOffsets: from, toOffset: to)
                         }
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
-                    .environment(\.editMode, .constant(editing ? .active : .inactive))
                     .onChange(of: scrollTarget) { _, target in
                         guard let target else { return }
                         withAnimation { proxy.scrollTo(target, anchor: .bottom) }
