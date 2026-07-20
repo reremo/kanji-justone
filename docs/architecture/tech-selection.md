@@ -68,7 +68,6 @@
 | 秘匿ロック | 完全不透明オーバーレイ＋`scenePhase`でAppスイッチャーのスナップショット隠し |
 | 並べ替え（採点） | List `.onMove`（グリッド形式なら DragGesture＋matchedGeometryEffect 自作） |
 | 演出 | PhaseAnimator（ドラムロール/pulse）・KeyframeAnimator・`.contentTransition(.numericText())`（スコア桁送り）・SpriteKit `SKEmitterNode`（紙吹雪） |
-| タイマー | TimelineView ＋ `.monospacedDigit()` |
 | Reduce Motion | `accessibilityReduceMotion` で全演出をフェードに差し替え |
 
 ## 代替案と比較
