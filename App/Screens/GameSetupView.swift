@@ -53,9 +53,10 @@ struct GameSetupView: View {
                             }
                         }
                         if isFixed {
-                            Text("回答者: \(fixedAnswererName)（先頭のプレイヤー）")
+                            Text("回答者にする人をえらぶ")
                                 .font(Theme.font(13))
                                 .foregroundStyle(Theme.inkSecondary)
+                            answererChips
                         }
                     }
                     if let startError {
@@ -84,11 +85,35 @@ struct GameSetupView: View {
         return false
     }
 
-    private var fixedAnswererName: String {
-        if case .fixed(let id) = app.answererMode {
-            return app.selectedPlayers.first { $0.id == id }?.name ?? "?"
+    private var fixedAnswererID: Player.ID? {
+        if case .fixed(let id) = app.answererMode { return id }
+        return nil
+    }
+
+    /// 固定モードで回答者にする人を参加者から選ぶチップ
+    @ViewBuilder
+    private var answererChips: some View {
+        let columns = [GridItem(.adaptive(minimum: 88), spacing: 8, alignment: .leading)]
+        LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+            ForEach(app.selectedPlayers) { player in
+                let selected = fixedAnswererID == player.id
+                Button {
+                    app.answererMode = .fixed(player.id)
+                } label: {
+                    Text(player.name)
+                        .font(Theme.font(15))
+                        .foregroundStyle(selected ? Theme.ink : Theme.inkSecondary)
+                        .lineLimit(1)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 14)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            Capsule().fill(selected ? Theme.primary : Theme.tileDeletedBg)
+                        )
+                }
+                .buttonStyle(.pressable)
+            }
         }
-        return "?"
     }
 
     @ViewBuilder
