@@ -21,6 +21,7 @@ final class AppState {
     var difficulty: Difficulty = .normal
     var useCustomTopics = false
     var answererMode: AnswererMode = .sequential
+    var timerSeconds: Int?  // nil = 無制限
 
     // 記録・購入・設定
     private(set) var records: [GameRecord]
@@ -109,7 +110,8 @@ final class AppState {
             players: selectedPlayers,
             rounds: rounds,
             charsPerPlayer: charsPerPlayer,
-            answererMode: answererMode
+            answererMode: answererMode,
+            timer: timerSeconds.map(TimeInterval.init)
         )
         let session = GameSession(config: config, topics: topics)
         session.onTurnFinished = { [weak self] engine, outcome in

@@ -10,6 +10,10 @@ struct AnswerInputView: View {
         let engine = session.engine
         ChalkScreen(progress: session.progressLine, title: "お題を当てる") {
             VStack(spacing: 24) {
+                if let duration = engine.config.timer {
+                    TimerChip(duration: duration)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
                 Text("生き残った漢字から お題を当ててください")
                     .font(Theme.font(17))
                     .foregroundStyle(Theme.chalk)

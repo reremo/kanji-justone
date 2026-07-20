@@ -42,6 +42,14 @@ struct GameSetupView: View {
                             }
                         }
                     }
+                    segmentCard(label: "タイマー（1人の持ち時間）") {
+                        segment(items: [("なし", app.timerSeconds == nil, false),
+                                        ("30秒", app.timerSeconds == 30, false),
+                                        ("60秒", app.timerSeconds == 60, false),
+                                        ("90秒", app.timerSeconds == 90, false)]) { index in
+                            app.timerSeconds = [nil, 30, 60, 90][index]
+                        }
+                    }
                     segmentCard(label: "回答者の決め方") {
                         segment(items: [("順番", app.answererMode == .sequential, false),
                                         ("ランダム", app.answererMode == .roundRobin, false),
