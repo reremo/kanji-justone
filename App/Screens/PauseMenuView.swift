@@ -8,30 +8,45 @@ struct PauseMenuView: View {
 
     var body: some View {
         @Bindable var app = app
-        VStack(spacing: 14) {
-            Text("一時中断")
-                .font(Theme.font(20))
-                .foregroundStyle(Theme.chalk)
-                .padding(.top, 20)
+        VStack(spacing: 12) {
+            HStack(spacing: 8) {
+                Image(systemName: "pause.circle.fill")
+                    .font(.system(size: 22))
+                    .foregroundStyle(Theme.primary)
+                Text("一時中断")
+                    .font(Theme.font(22))
+                    .foregroundStyle(Theme.chalk)
+            }
+            .padding(.top, 24)
+            .padding(.bottom, 4)
+
             CardRow {
+                Image(systemName: "speaker.wave.2.fill")
+                    .font(.system(size: 17))
+                    .foregroundStyle(Theme.inkSecondary)
                 Text("サウンド")
-                    .font(Theme.font(15))
+                    .font(Theme.font(16))
                     .foregroundStyle(Theme.ink)
                 Spacer()
                 Toggle("", isOn: $app.soundOn)
                     .labelsHidden()
                     .tint(Theme.primaryDark)
             }
-            ChalkButton(title: "つづける") {
-                dismiss()
-            }
-            ChalkButton(title: "中断してホームへ（あとで再開できる）", style: .outline) {
+
+            menuRow(title: "中断してホームへ", subtitle: "あとで再開できます",
+                    icon: "house.fill", tint: Theme.ink) {
                 dismiss()
                 app.suspendGame()
             }
-            ChalkButton(title: "ゲームをやめる", style: .warnOutline) {
+            menuRow(title: "ゲームをやめる", subtitle: "進行を破棄します（記録に残りません）",
+                    icon: "xmark.circle.fill", tint: Theme.error) {
                 confirmQuit = true
             }
+
+            ChalkButton(title: "つづける") {
+                dismiss()
+            }
+            .padding(.top, 4)
             Spacer()
         }
         .padding(.horizontal, 16)
@@ -48,5 +63,34 @@ struct PauseMenuView: View {
         } message: {
             Text("このゲームの進行は破棄され、記録にも残りません")
         }
+    }
+
+    private func menuRow(title: String, subtitle: String, icon: String, tint: Color,
+                         action: @escaping () -> Void) -> some View {
+        Button {
+            Haptics.light()
+            action()
+        } label: {
+            CardRow {
+                Image(systemName: icon)
+                    .font(.system(size: 18))
+                    .foregroundStyle(tint)
+                    .frame(width: 26)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(Theme.font(16))
+                        .foregroundStyle(tint)
+                    Text(subtitle)
+                        .font(Theme.font(12))
+                        .foregroundStyle(Theme.inkSecondary)
+                }
+                .padding(.vertical, 10)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14))
+                    .foregroundStyle(Theme.inkDisabled)
+            }
+        }
+        .buttonStyle(.plain)
     }
 }
