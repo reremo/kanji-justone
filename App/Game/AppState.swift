@@ -88,6 +88,26 @@ final class AppState {
 
     var selectedPlayers: [Player] { roster.filter { selectedPlayerIDs.contains($0.id) } }
 
+    func removePlayers(atOffsets offsets: IndexSet) {
+        for index in offsets {
+            selectedPlayerIDs.remove(roster[index].id)
+        }
+        roster.remove(atOffsets: offsets)
+        save(roster, key: Keys.roster)
+    }
+
+    func movePlayers(fromOffsets source: IndexSet, toOffset destination: Int) {
+        roster.move(fromOffsets: source, toOffset: destination)
+        save(roster, key: Keys.roster)
+    }
+
+    func renamePlayer(_ id: Player.ID, to name: String) {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty, let index = roster.firstIndex(where: { $0.id == id }) else { return }
+        roster[index].name = trimmed
+        save(roster, key: Keys.roster)
+    }
+
     // MARK: - 自作お題（買い切り限定）
 
     func addCustomTopic(text: String, furigana: String) {
