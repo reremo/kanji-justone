@@ -9,6 +9,7 @@ struct PlayerSelectView: View {
     @State private var renameTarget: Player?
     @State private var renameText = ""
     @State private var newName = ""
+    @State private var scrollTarget: Player.ID?
     @FocusState private var addFieldFocused: Bool
 
     var body: some View {
@@ -29,20 +30,27 @@ struct PlayerSelectView: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 2)
                 }
-                List {
-                    ForEach(app.roster) { player in
-                        playerRow(player)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(EdgeInsets(top: 7, leading: 16, bottom: 7, trailing: 16))
+                ScrollViewReader { proxy in
+                    List {
+                        ForEach(app.roster) { player in
+                            playerRow(player)
+                                .id(player.id)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(EdgeInsets(top: 7, leading: 16, bottom: 7, trailing: 16))
+                        }
+                        .onMove { from, to in
+                            app.movePlayers(fromOffsets: from, toOffset: to)
+                        }
                     }
-                    .onMove { from, to in
-                        app.movePlayers(fromOffsets: from, toOffset: to)
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                    .environment(\.editMode, .constant(editing ? .active : .inactive))
+                    .onChange(of: scrollTarget) { _, target in
+                        guard let target else { return }
+                        withAnimation { proxy.scrollTo(target, anchor: .bottom) }
                     }
                 }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .environment(\.editMode, .constant(editing ? .active : .inactive))
             }
             .padding(.top, 12)
         } actions: {
@@ -92,6 +100,8 @@ struct PlayerSelectView: View {
         Haptics.light()
         app.addPlayer(name: trimmed)
         newName = ""
+        addFieldFocused = false          // キーボードを閉じる
+        scrollTarget = app.roster.last?.id  // 追加した行までスクロール
     }
 
     @ViewBuilder
