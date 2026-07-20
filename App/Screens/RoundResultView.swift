@@ -25,6 +25,8 @@ struct RoundResultView: View {
 struct FinalResultView: View {
     @Environment(GameSession.self) private var session
     @Environment(AppState.self) private var app
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var showConfetti = false
 
     var body: some View {
         let engine = session.engine
@@ -35,6 +37,18 @@ struct FinalResultView: View {
             titleColor: Theme.chalkPink
         ) {
             ScoreListView(engine: engine, crownForFirst: true)
+                .overlay {
+                    if showConfetti {
+                        ConfettiView()
+                            .allowsHitTesting(false)
+                            .ignoresSafeArea()
+                    }
+                }
+                .onAppear {
+                    Haptics.success()
+                    SoundPlayer.play(.fanfare)
+                    if !reduceMotion { showConfetti = true }
+                }
         } actions: {
             ChalkButton(title: "もう一度あそぶ") {
                 try? app.startGame()

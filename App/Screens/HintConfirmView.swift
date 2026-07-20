@@ -58,7 +58,7 @@ private struct FlowLayoutGroups: View {
                             }
                     }
                     ForEach(0..<ghostCount(for: group), id: \.self) { _ in
-                        GhostSlot()
+                        AnimatedGhostSlot()
                     }
                 }
             }
@@ -66,7 +66,7 @@ private struct FlowLayoutGroups: View {
             ForEach(Array(wipedOwnerGhostCounts.enumerated()), id: \.offset) { _, count in
                 groupBox {
                     ForEach(0..<count, id: \.self) { _ in
-                        GhostSlot()
+                        AnimatedGhostSlot()
                     }
                 }
             }
@@ -95,3 +95,21 @@ private struct FlowLayoutGroups: View {
         return counts.values.sorted()
     }
 }
+
+/// 「消えた」感を出すため、出現時にへこむようなスプリングで現れる消えた枠
+private struct AnimatedGhostSlot: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var shown = false
+
+    var body: some View {
+        GhostSlot()
+            .scaleEffect(shown || reduceMotion ? 1 : 0.3)
+            .opacity(shown || reduceMotion ? 1 : 0)
+            .onAppear {
+                withAnimation(.spring(duration: 0.5, bounce: 0.45).delay(0.25)) {
+                    shown = true
+                }
+            }
+    }
+}
+

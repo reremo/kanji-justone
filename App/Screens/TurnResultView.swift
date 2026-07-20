@@ -4,7 +4,10 @@ import KanjiCore
 /// S13 このターンの結果（誰が何を出したか・順位・得点を公開）
 struct TurnResultView: View {
     @Environment(GameSession.self) private var session
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let outcome: TurnOutcome
+    @State private var celebrated = false
+    @State private var shakeX: CGFloat = 0
 
     var body: some View {
         let engine = session.engine
@@ -31,10 +34,38 @@ struct TurnResultView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
+                .offset(x: shakeX)
             }
         } actions: {
             ChalkButton(title: "次へ") {
                 session.update { $0.proceedFromTurnResult() }
+            }
+        }
+        .task { await playEntranceEffects() }
+    }
+
+    /// 結果発表の演出（正解バースト／全滅シェイク）。Reduce Motion 時はフェードのみ
+    private func playEntranceEffects() async {
+        switch outcome {
+        case .correct:
+            Haptics.success()
+            SoundPlayer.play(.correct)
+        case .giveUp:
+            Haptics.warning()
+            SoundPlayer.play(.wrong)
+        case .wipeout:
+            Haptics.heavy()
+            SoundPlayer.play(.wipeout)
+        }
+        if reduceMotion {
+            celebrated = true
+            return
+        }
+        withAnimation(.spring(duration: 0.5, bounce: 0.5)) { celebrated = true }
+        if outcome == .wipeout {
+            for x in [-10, 10, -7, 7, -3, 0] as [CGFloat] {
+                withAnimation(.linear(duration: 0.05)) { shakeX = x }
+                try? await Task.sleep(for: .milliseconds(55))
             }
         }
     }
@@ -71,6 +102,8 @@ struct TurnResultView: View {
             Label(label, systemImage: outcome == .correct ? "checkmark.circle.fill" : "xmark.circle")
                 .font(Theme.font(15))
                 .foregroundStyle(color)
+                .scaleEffect(celebrated ? 1 : 0.3)
+                .opacity(celebrated ? 1 : 0)
             Spacer()
             Text(points(for: engine.answerer.id, engine: engine))
                 .font(.system(size: 18, weight: .bold, design: .rounded))

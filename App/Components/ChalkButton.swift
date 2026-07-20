@@ -13,7 +13,11 @@ struct ChalkButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
+        Button {
+            Haptics.light()
+            SoundPlayer.play(.tap)
+            action()
+        } label: {
             Text(title)
                 .font(Theme.font(style == .primary ? 17 : 16))
                 .foregroundStyle(foreground)

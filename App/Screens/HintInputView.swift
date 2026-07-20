@@ -15,6 +15,11 @@ struct HintInputView: View {
 
         ChalkScreen(progress: session.progressLine, title: "ヒントを書く") {
             VStack(spacing: 16) {
+                if let duration = engine.config.timer {
+                    TimerChip(duration: duration)
+                        .id(engine.currentHintGiver?.id)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
                 Text("\(name)さんの ヒントを入力（漢字\(count)文字）")
                     .font(Theme.font(17))
                     .foregroundStyle(Theme.chalk)
