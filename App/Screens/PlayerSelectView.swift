@@ -114,6 +114,7 @@ struct PlayerSelectView: View {
     private func playerRow(_ player: Player) -> some View {
         let selected = app.selectedPlayerIDs.contains(player.id)
         HStack(spacing: 12) {
+            // 左: 編集時は削除、通常時は選択チェック
             if editing {
                 Button {
                     Haptics.light()
@@ -126,11 +127,16 @@ struct PlayerSelectView: View {
                         .foregroundStyle(Theme.error)
                 }
                 .buttonStyle(.plain)
+            } else {
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 24))
+                    .foregroundStyle(selected ? Theme.success : Theme.tileBorder)
             }
             Text(player.name)
                 .font(Theme.font(18))
                 .foregroundStyle(Theme.ink)
             Spacer()
+            // 右: 編集時は名前変更、通常時は並び替え（長押し）の目印
             if editing {
                 Button {
                     renameTarget = player
@@ -142,9 +148,9 @@ struct PlayerSelectView: View {
                 }
                 .buttonStyle(.plain)
             } else {
-                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                    .font(.system(size: 24))
-                    .foregroundStyle(selected ? Theme.success : Theme.tileBorder)
+                Image(systemName: "line.3.horizontal")
+                    .font(.system(size: 18))
+                    .foregroundStyle(Theme.inkDisabled)
             }
         }
         .padding(.horizontal, 18)
