@@ -266,6 +266,542 @@
       "free": false
     },
     {
+      "id": "t-e-034",
+      "text": "たこ焼き",
+      "furigana": "たこやき",
+      "difficulty": "easy",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-e-035",
+      "text": "プリン",
+      "furigana": "ぷりん",
+      "difficulty": "easy",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-e-036",
+      "text": "ぞう",
+      "furigana": "ぞう",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-037",
+      "text": "きりん",
+      "furigana": "きりん",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-038",
+      "text": "ペンギン",
+      "furigana": "ぺんぎん",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-039",
+      "text": "ブランコ",
+      "furigana": "ぶらんこ",
+      "difficulty": "easy",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-e-040",
+      "text": "けん玉",
+      "furigana": "けんだま",
+      "difficulty": "easy",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-e-041",
+      "text": "トランプ",
+      "furigana": "とらんぷ",
+      "difficulty": "easy",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-e-042",
+      "text": "消防車",
+      "furigana": "しょうぼうしゃ",
+      "difficulty": "easy",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-e-043",
+      "text": "救急車",
+      "furigana": "きゅうきゅうしゃ",
+      "difficulty": "easy",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-e-044",
+      "text": "ひな祭り",
+      "furigana": "ひなまつり",
+      "difficulty": "easy",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-e-045",
+      "text": "節分",
+      "furigana": "せつぶん",
+      "difficulty": "easy",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-e-046",
+      "text": "こいのぼり",
+      "furigana": "こいのぼり",
+      "difficulty": "easy",
+      "category": "きせつ",
+      "free": false
+    },
+    {
+      "id": "t-e-047",
+      "text": "サッカー",
+      "furigana": "さっかー",
+      "difficulty": "easy",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-e-048",
+      "text": "野球",
+      "furigana": "やきゅう",
+      "difficulty": "easy",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-e-049",
+      "text": "黒板",
+      "furigana": "こくばん",
+      "difficulty": "easy",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-e-050",
+      "text": "くしゃみ",
+      "furigana": "くしゃみ",
+      "difficulty": "easy",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-e-051",
+      "text": "傘",
+      "furigana": "かさ",
+      "difficulty": "easy",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-e-052",
+      "text": "目覚まし時計",
+      "furigana": "めざましどけい",
+      "difficulty": "easy",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-e-053",
+      "text": "公園",
+      "furigana": "こうえん",
+      "difficulty": "easy",
+      "category": "ばしょ",
+      "free": false
+    },
+    {
+      "id": "t-e-054",
+      "text": "ぎょうざ",
+      "furigana": "ぎょうざ",
+      "difficulty": "easy",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-e-055",
+      "text": "みそしる",
+      "furigana": "みそしる",
+      "difficulty": "easy",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-e-056",
+      "text": "サンドイッチ",
+      "furigana": "さんどいっち",
+      "difficulty": "easy",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-e-057",
+      "text": "バス",
+      "furigana": "ばす",
+      "difficulty": "easy",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-e-058",
+      "text": "ヨット",
+      "furigana": "よっと",
+      "difficulty": "easy",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-e-059",
+      "text": "びじゅつかん",
+      "furigana": "びじゅつかん",
+      "difficulty": "easy",
+      "category": "ばしょ",
+      "free": false
+    },
+    {
+      "id": "t-e-060",
+      "text": "やおや",
+      "furigana": "やおや",
+      "difficulty": "easy",
+      "category": "ばしょ",
+      "free": false
+    },
+    {
+      "id": "t-e-061",
+      "text": "のうか",
+      "furigana": "のうか",
+      "difficulty": "easy",
+      "category": "しごと",
+      "free": false
+    },
+    {
+      "id": "t-e-062",
+      "text": "すごろく",
+      "furigana": "すごろく",
+      "difficulty": "easy",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-e-063",
+      "text": "たこあげ",
+      "furigana": "たこあげ",
+      "difficulty": "easy",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-e-064",
+      "text": "ハロウィン",
+      "furigana": "はろうぃん",
+      "difficulty": "easy",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-e-065",
+      "text": "かみなり",
+      "furigana": "かみなり",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-066",
+      "text": "ひまわり",
+      "furigana": "ひまわり",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-067",
+      "text": "もみじ",
+      "furigana": "もみじ",
+      "difficulty": "easy",
+      "category": "きせつ",
+      "free": false
+    },
+    {
+      "id": "t-e-068",
+      "text": "あくび",
+      "furigana": "あくび",
+      "difficulty": "easy",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-e-069",
+      "text": "せんぷうき",
+      "furigana": "せんぷうき",
+      "difficulty": "easy",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-e-070",
+      "text": "マラソン",
+      "furigana": "まらそん",
+      "difficulty": "easy",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-e-071",
+      "text": "ふうりん",
+      "furigana": "ふうりん",
+      "difficulty": "easy",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-e-072",
+      "text": "自転車",
+      "furigana": "じてんしゃ",
+      "difficulty": "easy",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-e-073",
+      "text": "カブトムシ",
+      "furigana": "かぶとむし",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-074",
+      "text": "だるま",
+      "furigana": "だるま",
+      "difficulty": "easy",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-e-075",
+      "text": "かかし",
+      "furigana": "かかし",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-076",
+      "text": "ぞうきん",
+      "furigana": "ぞうきん",
+      "difficulty": "easy",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-e-077",
+      "text": "たんぼ",
+      "furigana": "たんぼ",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-078",
+      "text": "夕焼け",
+      "furigana": "ゆうやけ",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-079",
+      "text": "紙芝居",
+      "furigana": "かみしばい",
+      "difficulty": "easy",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-e-080",
+      "text": "郵便局",
+      "furigana": "ゆうびんきょく",
+      "difficulty": "easy",
+      "category": "ばしょ",
+      "free": false
+    },
+    {
+      "id": "t-e-081",
+      "text": "駄菓子屋",
+      "furigana": "だがしや",
+      "difficulty": "easy",
+      "category": "ばしょ",
+      "free": false
+    },
+    {
+      "id": "t-e-082",
+      "text": "桃太郎",
+      "furigana": "ももたろう",
+      "difficulty": "easy",
+      "category": "むかしばなし",
+      "free": false
+    },
+    {
+      "id": "t-e-083",
+      "text": "かぐや姫",
+      "furigana": "かぐやひめ",
+      "difficulty": "easy",
+      "category": "むかしばなし",
+      "free": false
+    },
+    {
+      "id": "t-e-084",
+      "text": "盆踊り",
+      "furigana": "ぼんおどり",
+      "difficulty": "easy",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-e-085",
+      "text": "警察官",
+      "furigana": "けいさつかん",
+      "difficulty": "easy",
+      "category": "しごと",
+      "free": false
+    },
+    {
+      "id": "t-e-086",
+      "text": "磁石",
+      "furigana": "じしゃく",
+      "difficulty": "easy",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-e-087",
+      "text": "潜水艦",
+      "furigana": "せんすいかん",
+      "difficulty": "easy",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-e-088",
+      "text": "保健室",
+      "furigana": "ほけんしつ",
+      "difficulty": "easy",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-e-089",
+      "text": "ビー玉",
+      "furigana": "びーだま",
+      "difficulty": "easy",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-e-090",
+      "text": "焼き芋",
+      "furigana": "やきいも",
+      "difficulty": "easy",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-e-091",
+      "text": "卓球",
+      "furigana": "たっきゅう",
+      "difficulty": "easy",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-e-092",
+      "text": "なぞなぞ",
+      "furigana": "なぞなぞ",
+      "difficulty": "easy",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-e-093",
+      "text": "金魚",
+      "furigana": "きんぎょ",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-094",
+      "text": "七夕",
+      "furigana": "たなばた",
+      "difficulty": "easy",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-e-095",
+      "text": "どんぐり",
+      "furigana": "どんぐり",
+      "difficulty": "easy",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-e-096",
+      "text": "消しゴム",
+      "furigana": "けしごむ",
+      "difficulty": "easy",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-e-097",
+      "text": "鏡",
+      "furigana": "かがみ",
+      "difficulty": "easy",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-e-098",
+      "text": "積み木",
+      "furigana": "つみき",
+      "difficulty": "easy",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-e-099",
+      "text": "バスケットボール",
+      "furigana": "ばすけっとぼーる",
+      "difficulty": "easy",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-e-100",
+      "text": "空港",
+      "furigana": "くうこう",
+      "difficulty": "easy",
+      "category": "ばしょ",
+      "free": false
+    },
+    {
       "id": "t-n-001",
       "text": "観覧車",
       "furigana": "かんらんしゃ",
@@ -543,6 +1079,526 @@
       "furigana": "きんにくつう",
       "difficulty": "normal",
       "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-n-036",
+      "text": "大掃除",
+      "furigana": "おおそうじ",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-037",
+      "text": "遅刻",
+      "furigana": "ちこく",
+      "difficulty": "normal",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-n-038",
+      "text": "停電",
+      "furigana": "ていでん",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-039",
+      "text": "潮干狩り",
+      "furigana": "しおひがり",
+      "difficulty": "normal",
+      "category": "きせつ",
+      "free": false
+    },
+    {
+      "id": "t-n-040",
+      "text": "木枯らし",
+      "furigana": "こがらし",
+      "difficulty": "normal",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-n-041",
+      "text": "手品",
+      "furigana": "てじな",
+      "difficulty": "normal",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-n-042",
+      "text": "探検",
+      "furigana": "たんけん",
+      "difficulty": "normal",
+      "category": "ファンタジー",
+      "free": false
+    },
+    {
+      "id": "t-n-043",
+      "text": "逆上がり",
+      "furigana": "さかあがり",
+      "difficulty": "normal",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-n-044",
+      "text": "交差点",
+      "furigana": "こうさてん",
+      "difficulty": "normal",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-n-045",
+      "text": "縁側",
+      "furigana": "えんがわ",
+      "difficulty": "normal",
+      "category": "ばしょ",
+      "free": false
+    },
+    {
+      "id": "t-n-046",
+      "text": "天気予報",
+      "furigana": "てんきよほう",
+      "difficulty": "normal",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-n-047",
+      "text": "寝返り",
+      "furigana": "ねがえり",
+      "difficulty": "normal",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-n-048",
+      "text": "関所",
+      "furigana": "せきしょ",
+      "difficulty": "normal",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-n-049",
+      "text": "迷子",
+      "furigana": "まいご",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-050",
+      "text": "影絵",
+      "furigana": "かげえ",
+      "difficulty": "normal",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-n-051",
+      "text": "芋掘り",
+      "furigana": "いもほり",
+      "difficulty": "normal",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-n-052",
+      "text": "早口言葉",
+      "furigana": "はやくちことば",
+      "difficulty": "normal",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-n-053",
+      "text": "一寸法師",
+      "furigana": "いっすんぼうし",
+      "difficulty": "normal",
+      "category": "むかしばなし",
+      "free": false
+    },
+    {
+      "id": "t-n-054",
+      "text": "渋滞",
+      "furigana": "じゅうたい",
+      "difficulty": "normal",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-n-055",
+      "text": "花見",
+      "furigana": "はなみ",
+      "difficulty": "normal",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-n-056",
+      "text": "行列",
+      "furigana": "ぎょうれつ",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-057",
+      "text": "席替え",
+      "furigana": "せきがえ",
+      "difficulty": "normal",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-n-058",
+      "text": "忘れ物",
+      "furigana": "わすれもの",
+      "difficulty": "normal",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-n-059",
+      "text": "大晦日",
+      "furigana": "おおみそか",
+      "difficulty": "normal",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-n-060",
+      "text": "福笑い",
+      "furigana": "ふくわらい",
+      "difficulty": "normal",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-n-061",
+      "text": "竹馬",
+      "furigana": "たけうま",
+      "difficulty": "normal",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-n-062",
+      "text": "一輪車",
+      "furigana": "いちりんしゃ",
+      "difficulty": "normal",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-n-063",
+      "text": "肝試し",
+      "furigana": "きもだめし",
+      "difficulty": "normal",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-n-064",
+      "text": "蛍",
+      "furigana": "ほたる",
+      "difficulty": "normal",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-n-065",
+      "text": "つらら",
+      "furigana": "つらら",
+      "difficulty": "normal",
+      "category": "きせつ",
+      "free": false
+    },
+    {
+      "id": "t-n-066",
+      "text": "望遠鏡",
+      "furigana": "ぼうえんきょう",
+      "difficulty": "normal",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-n-067",
+      "text": "落とし穴",
+      "furigana": "おとしあな",
+      "difficulty": "normal",
+      "category": "ファンタジー",
+      "free": false
+    },
+    {
+      "id": "t-n-068",
+      "text": "独り言",
+      "furigana": "ひとりごと",
+      "difficulty": "normal",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-n-069",
+      "text": "綿あめ",
+      "furigana": "わたあめ",
+      "difficulty": "normal",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-n-070",
+      "text": "目玉焼き",
+      "furigana": "めだまやき",
+      "difficulty": "normal",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-n-071",
+      "text": "貯金箱",
+      "furigana": "ちょきんばこ",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-072",
+      "text": "木登り",
+      "furigana": "きのぼり",
+      "difficulty": "normal",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-n-073",
+      "text": "満腹",
+      "furigana": "まんぷく",
+      "difficulty": "normal",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-n-074",
+      "text": "留守番",
+      "furigana": "るすばん",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-075",
+      "text": "焼き鳥",
+      "furigana": "やきとり",
+      "difficulty": "normal",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-n-076",
+      "text": "冬眠",
+      "furigana": "とうみん",
+      "difficulty": "normal",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-n-077",
+      "text": "遠吠え",
+      "furigana": "とおぼえ",
+      "difficulty": "normal",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-n-078",
+      "text": "引っ越し",
+      "furigana": "ひっこし",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-079",
+      "text": "打ち水",
+      "furigana": "うちみず",
+      "difficulty": "normal",
+      "category": "くらし",
+      "free": false
+    },
+    {
+      "id": "t-n-080",
+      "text": "二日酔い",
+      "furigana": "ふつかよい",
+      "difficulty": "normal",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-n-081",
+      "text": "逆立ち",
+      "furigana": "さかだち",
+      "difficulty": "normal",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-n-082",
+      "text": "転校生",
+      "furigana": "てんこうせい",
+      "difficulty": "normal",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-n-083",
+      "text": "参観日",
+      "furigana": "さんかんび",
+      "difficulty": "normal",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-n-084",
+      "text": "綱引き",
+      "furigana": "つなひき",
+      "difficulty": "normal",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-n-085",
+      "text": "二人三脚",
+      "furigana": "ににんさんきゃく",
+      "difficulty": "normal",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-n-086",
+      "text": "秘密基地",
+      "furigana": "ひみつきち",
+      "difficulty": "normal",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-n-087",
+      "text": "蚊取り線香",
+      "furigana": "かとりせんこう",
+      "difficulty": "normal",
+      "category": "きせつ",
+      "free": false
+    },
+    {
+      "id": "t-n-088",
+      "text": "影武者",
+      "furigana": "かげむしゃ",
+      "difficulty": "normal",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-n-089",
+      "text": "福袋",
+      "furigana": "ふくぶくろ",
+      "difficulty": "normal",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-n-090",
+      "text": "川下り",
+      "furigana": "かわくだり",
+      "difficulty": "normal",
+      "category": "のりもの",
+      "free": false
+    },
+    {
+      "id": "t-n-091",
+      "text": "屋根裏",
+      "furigana": "やねうら",
+      "difficulty": "normal",
+      "category": "ふしぎ",
+      "free": false
+    },
+    {
+      "id": "t-n-092",
+      "text": "味見",
+      "furigana": "あじみ",
+      "difficulty": "normal",
+      "category": "たべもの",
+      "free": false
+    },
+    {
+      "id": "t-n-093",
+      "text": "立ち読み",
+      "furigana": "たちよみ",
+      "difficulty": "normal",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-n-094",
+      "text": "雨宿り",
+      "furigana": "あまやどり",
+      "difficulty": "normal",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-n-095",
+      "text": "上履き",
+      "furigana": "うわばき",
+      "difficulty": "normal",
+      "category": "がっこう",
+      "free": false
+    },
+    {
+      "id": "t-n-096",
+      "text": "水鉄砲",
+      "furigana": "みずでっぽう",
+      "difficulty": "normal",
+      "category": "あそび",
+      "free": false
+    },
+    {
+      "id": "t-n-097",
+      "text": "星座",
+      "furigana": "せいざ",
+      "difficulty": "normal",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-n-098",
+      "text": "墓参り",
+      "furigana": "はかまいり",
+      "difficulty": "normal",
+      "category": "ぎょうじ",
+      "free": false
+    },
+    {
+      "id": "t-n-099",
+      "text": "準備運動",
+      "furigana": "じゅんびうんどう",
+      "difficulty": "normal",
+      "category": "スポーツ",
+      "free": false
+    },
+    {
+      "id": "t-n-100",
+      "text": "顕微鏡",
+      "furigana": "けんびきょう",
+      "difficulty": "normal",
+      "category": "かがく",
       "free": false
     },
     {
