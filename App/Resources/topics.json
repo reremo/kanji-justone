@@ -1856,6 +1856,550 @@
       "difficulty": "hard",
       "category": "しぜん",
       "free": false
+    },
+    {
+      "id": "t-h-033",
+      "text": "四面楚歌",
+      "furigana": "しめんそか",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-034",
+      "text": "疑心暗鬼",
+      "furigana": "ぎしんあんき",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-035",
+      "text": "弱肉強食",
+      "furigana": "じゃくにくきょうしょく",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-036",
+      "text": "一期一会",
+      "furigana": "いちごいちえ",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-037",
+      "text": "以心伝心",
+      "furigana": "いしんでんしん",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-038",
+      "text": "因果応報",
+      "furigana": "いんがおうほう",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-039",
+      "text": "漁夫の利",
+      "furigana": "ぎょふのり",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-040",
+      "text": "背水の陣",
+      "furigana": "はいすいのじん",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-041",
+      "text": "虫の知らせ",
+      "furigana": "むしのしらせ",
+      "difficulty": "hard",
+      "category": "ふしぎ",
+      "free": false
+    },
+    {
+      "id": "t-h-042",
+      "text": "罪悪感",
+      "furigana": "ざいあくかん",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-043",
+      "text": "現実逃避",
+      "furigana": "げんじつとうひ",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-044",
+      "text": "郷愁",
+      "furigana": "きょうしゅう",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-045",
+      "text": "遠心力",
+      "furigana": "えんしんりょく",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-046",
+      "text": "静電気",
+      "furigana": "せいでんき",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-047",
+      "text": "光合成",
+      "furigana": "こうごうせい",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-048",
+      "text": "結露",
+      "furigana": "けつろ",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-049",
+      "text": "参勤交代",
+      "furigana": "さんきんこうたい",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-050",
+      "text": "鎖国",
+      "furigana": "さこく",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-051",
+      "text": "波紋",
+      "furigana": "はもん",
+      "difficulty": "hard",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-h-052",
+      "text": "干支",
+      "furigana": "えと",
+      "difficulty": "hard",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-h-053",
+      "text": "温故知新",
+      "furigana": "おんこちしん",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-054",
+      "text": "起承転結",
+      "furigana": "きしょうてんけつ",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-055",
+      "text": "呉越同舟",
+      "furigana": "ごえつどうしゅう",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-056",
+      "text": "焦燥感",
+      "furigana": "しょうそうかん",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-057",
+      "text": "優越感",
+      "furigana": "ゆうえつかん",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-058",
+      "text": "屈折",
+      "furigana": "くっせつ",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-059",
+      "text": "慣性",
+      "furigana": "かんせい",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-060",
+      "text": "潮騒",
+      "furigana": "しおさい",
+      "difficulty": "hard",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-h-061",
+      "text": "樹氷",
+      "furigana": "じゅひょう",
+      "difficulty": "hard",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-h-062",
+      "text": "霜柱",
+      "furigana": "しもばしら",
+      "difficulty": "hard",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-h-063",
+      "text": "黒船",
+      "furigana": "くろふね",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-064",
+      "text": "火縄銃",
+      "furigana": "ひなわじゅう",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-065",
+      "text": "歌舞伎",
+      "furigana": "かぶき",
+      "difficulty": "hard",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-h-066",
+      "text": "鳥肌",
+      "furigana": "とりはだ",
+      "difficulty": "hard",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-h-067",
+      "text": "貧血",
+      "furigana": "ひんけつ",
+      "difficulty": "hard",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-h-068",
+      "text": "都市伝説",
+      "furigana": "としでんせつ",
+      "difficulty": "hard",
+      "category": "ふしぎ",
+      "free": false
+    },
+    {
+      "id": "t-h-069",
+      "text": "手相",
+      "furigana": "てそう",
+      "difficulty": "hard",
+      "category": "ふしぎ",
+      "free": false
+    },
+    {
+      "id": "t-h-070",
+      "text": "板前",
+      "furigana": "いたまえ",
+      "difficulty": "hard",
+      "category": "しごと",
+      "free": false
+    },
+    {
+      "id": "t-h-071",
+      "text": "浮世絵",
+      "furigana": "うきよえ",
+      "difficulty": "hard",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-h-072",
+      "text": "杜氏",
+      "furigana": "とうじ",
+      "difficulty": "hard",
+      "category": "しごと",
+      "free": false
+    },
+    {
+      "id": "t-h-073",
+      "text": "表面張力",
+      "furigana": "ひょうめんちょうりょく",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-074",
+      "text": "摩擦",
+      "furigana": "まさつ",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-075",
+      "text": "雲海",
+      "furigana": "うんかい",
+      "difficulty": "hard",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-h-076",
+      "text": "間欠泉",
+      "furigana": "かんけつせん",
+      "difficulty": "hard",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-h-077",
+      "text": "元寇",
+      "furigana": "げんこう",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-078",
+      "text": "埴輪",
+      "furigana": "はにわ",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-079",
+      "text": "盆栽",
+      "furigana": "ぼんさい",
+      "difficulty": "hard",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-h-080",
+      "text": "提灯",
+      "furigana": "ちょうちん",
+      "difficulty": "hard",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-h-081",
+      "text": "千里眼",
+      "furigana": "せんりがん",
+      "difficulty": "hard",
+      "category": "ふしぎ",
+      "free": false
+    },
+    {
+      "id": "t-h-082",
+      "text": "呪い",
+      "furigana": "のろい",
+      "difficulty": "hard",
+      "category": "ふしぎ",
+      "free": false
+    },
+    {
+      "id": "t-h-083",
+      "text": "鵜飼い",
+      "furigana": "うかい",
+      "difficulty": "hard",
+      "category": "しごと",
+      "free": false
+    },
+    {
+      "id": "t-h-084",
+      "text": "左官",
+      "furigana": "さかん",
+      "difficulty": "hard",
+      "category": "しごと",
+      "free": false
+    },
+    {
+      "id": "t-h-085",
+      "text": "五月雨",
+      "furigana": "さみだれ",
+      "difficulty": "hard",
+      "category": "きせつ",
+      "free": false
+    },
+    {
+      "id": "t-h-086",
+      "text": "臥薪嘗胆",
+      "furigana": "がしんしょうたん",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-087",
+      "text": "五里霧中",
+      "furigana": "ごりむちゅう",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-088",
+      "text": "七転八倒",
+      "furigana": "しちてんばっとう",
+      "difficulty": "hard",
+      "category": "ことば",
+      "free": false
+    },
+    {
+      "id": "t-h-089",
+      "text": "劣等感",
+      "furigana": "れっとうかん",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-090",
+      "text": "達成感",
+      "furigana": "たっせいかん",
+      "difficulty": "hard",
+      "category": "きもち",
+      "free": false
+    },
+    {
+      "id": "t-h-091",
+      "text": "昇華",
+      "furigana": "しょうか",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-092",
+      "text": "遣唐使",
+      "furigana": "けんとうし",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-093",
+      "text": "ドップラー効果",
+      "furigana": "どっぷらーこうか",
+      "difficulty": "hard",
+      "category": "かがく",
+      "free": false
+    },
+    {
+      "id": "t-h-094",
+      "text": "雪崩",
+      "furigana": "なだれ",
+      "difficulty": "hard",
+      "category": "しぜん",
+      "free": false
+    },
+    {
+      "id": "t-h-095",
+      "text": "大政奉還",
+      "furigana": "たいせいほうかん",
+      "difficulty": "hard",
+      "category": "れきし",
+      "free": false
+    },
+    {
+      "id": "t-h-096",
+      "text": "枯山水",
+      "furigana": "かれさんすい",
+      "difficulty": "hard",
+      "category": "ぶんか",
+      "free": false
+    },
+    {
+      "id": "t-h-097",
+      "text": "飛脚",
+      "furigana": "ひきゃく",
+      "difficulty": "hard",
+      "category": "しごと",
+      "free": false
+    },
+    {
+      "id": "t-h-098",
+      "text": "幽体離脱",
+      "furigana": "ゆうたいりだつ",
+      "difficulty": "hard",
+      "category": "ふしぎ",
+      "free": false
+    },
+    {
+      "id": "t-h-099",
+      "text": "こむら返り",
+      "furigana": "こむらがえり",
+      "difficulty": "hard",
+      "category": "からだ",
+      "free": false
+    },
+    {
+      "id": "t-h-100",
+      "text": "宮大工",
+      "furigana": "みやだいく",
+      "difficulty": "hard",
+      "category": "しごと",
+      "free": false
     }
   ]
 }
