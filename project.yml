@@ -26,10 +26,11 @@ targets:
         GENERATE_INFOPLIST_FILE: NO
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: 552TRQJAS5
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
       path: App/Info.plist
       properties:
-        CFBundleDisplayName: 漢字ジャストワン
+        CFBundleDisplayName: 漢字の力
         UILaunchScreen: {}
         UIAppFonts:
           - KosugiMaru-Regular.ttf
