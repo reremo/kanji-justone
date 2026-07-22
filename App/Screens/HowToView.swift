@@ -5,11 +5,11 @@ struct HowToView: View {
     @Environment(\.dismiss) private var dismiss
 
     private let steps = [
-        "回答者以外で お題をこっそり見る",
-        "1人ずつ 漢字でヒントを出す",
-        "かぶった文字は消えてしまう！かぶらない字を選ぼう",
-        "残った漢字だけで 回答者が当てる",
-        "当たったら 回答者もヒントを出した人も得点！",
+        "回答者以外で お題を見る",
+        "お題を連想する漢字を 1人ずつ出す",
+        "他人と被ったヒントの漢字は消える。かぶらない字を選ぶ かけひき",
+        "最終的に残った漢字で 回答者が当てる",
+        "当たれば 回答者もヒントを出した人も得点",
     ]
 
     var body: some View {
@@ -29,9 +29,6 @@ struct HowToView: View {
                             .padding(.vertical, 12)
                     }
                 }
-                Text("※ お題の漢字そのものや、自分の文字で実在する言葉を作るのはNG！")
-                    .font(Theme.font(13))
-                    .foregroundStyle(Theme.chalkFaded)
                 Spacer()
             }
             .padding(.horizontal, 16)
