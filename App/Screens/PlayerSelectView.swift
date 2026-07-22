@@ -13,6 +13,8 @@ struct PlayerSelectView: View {
     @State private var scrollTarget: Player.ID?
     @FocusState private var addFieldFocused: Bool
 
+    private static let maxNameLength = 10
+
     var body: some View {
         let count = app.selectedPlayers.count
         NavScreen(title: "だれが遊ぶ？") {
@@ -113,6 +115,13 @@ struct PlayerSelectView: View {
                 adding = false
                 newName = ""
             }
+        }
+        // 名前は最大10文字（追加・名前変更とも）
+        .onChange(of: newName) { _, v in
+            if v.count > Self.maxNameLength { newName = String(v.prefix(Self.maxNameLength)) }
+        }
+        .onChange(of: renameText) { _, v in
+            if v.count > Self.maxNameLength { renameText = String(v.prefix(Self.maxNameLength)) }
         }
         .alert("名前を変更", isPresented: Binding(
             get: { renameTarget != nil },
