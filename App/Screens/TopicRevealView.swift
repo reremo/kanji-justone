@@ -37,9 +37,6 @@ struct TopicRevealView: View {
                         .foregroundStyle(Theme.primary)
                 }
                 .buttonStyle(.pressable)
-                Label("回答者には 絶対に見せないでください", systemImage: "eye.slash")
-                    .font(Theme.font(13))
-                    .foregroundStyle(Theme.chalkFaded)
             }
             .padding(.horizontal, 16)
         } actions: {
