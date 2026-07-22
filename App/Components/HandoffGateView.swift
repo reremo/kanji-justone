@@ -2,9 +2,9 @@ import SwiftUI
 
 /// 秘匿の受け渡し・確認ゲート（深黒板の全面画面）
 struct HandoffGateView: View {
-    let phaseLabel: String
+    var phaseLabel: String = ""
     var icon: String = "eye.slash"
-    let lead: String
+    var lead: String = ""
     let headline: String
     var note: String?
     let buttonTitle: String
@@ -15,18 +15,22 @@ struct HandoffGateView: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
-            VStack(spacing: 16) {
-                Text(phaseLabel)
-                    .font(Theme.font(13))
-                    .foregroundStyle(Theme.chalkDim)
+            VStack(spacing: 18) {
+                if !phaseLabel.isEmpty {
+                    Text(phaseLabel)
+                        .font(Theme.font(13))
+                        .foregroundStyle(Theme.chalkDim)
+                }
                 Image(systemName: icon)
-                    .font(.system(size: 40))
-                    .foregroundStyle(Theme.ghostIcon)
-                Text(lead)
-                    .font(Theme.font(20))
-                    .foregroundStyle(Theme.chalkFaded)
+                    .font(.system(size: 54))
+                    .foregroundStyle(Theme.primary)
+                if !lead.isEmpty {
+                    Text(lead)
+                        .font(Theme.font(18))
+                        .foregroundStyle(Theme.chalkFaded)
+                }
                 Text(headline)
-                    .font(Theme.font(32))
+                    .font(Theme.font(34))
                     .foregroundStyle(Theme.chalk)
                     .multilineTextAlignment(.center)
                 if let note {
