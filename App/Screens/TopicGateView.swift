@@ -6,11 +6,9 @@ struct TopicGateView: View {
 
     var body: some View {
         HandoffGateView(
-            phaseLabel: "お題を見る",
-            lead: "回答者以外の みんなで見ます",
-            headline: "\(session.engine.answerer.name)さんは\n見ていませんか？",
-            note: "回答者が画面を見ていなければOKを押してください",
-            buttonTitle: "OK — お題を表示"
+            icon: "eye.slash",
+            headline: "\(session.engine.answerer.name)は 見てはダメ",
+            buttonTitle: "お題公開へ"
         ) {
             session.update { $0.confirmAnswererNotLooking() }
         }

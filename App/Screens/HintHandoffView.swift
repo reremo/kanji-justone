@@ -8,8 +8,8 @@ struct HintHandoffView: View {
         let name = session.engine.currentHintGiver?.name ?? ""
         HandoffGateView(
             phaseLabel: "ヒントを書く",
-            lead: "\(name)さんに 渡してください",
-            headline: "\(name)さんですか？",
+            lead: "\(name)に 渡してください",
+            headline: "\(name)ですか？",
             note: "本人だけが「はい」を押してください",
             buttonTitle: "はい、\(name)です"
         ) {
