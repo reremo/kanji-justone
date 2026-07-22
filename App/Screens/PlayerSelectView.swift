@@ -9,8 +9,11 @@ struct PlayerSelectView: View {
     @State private var renameTarget: Player?
     @State private var renameText = ""
     @State private var newName = ""
+    @State private var adding = false
     @State private var scrollTarget: Player.ID?
     @FocusState private var addFieldFocused: Bool
+
+    private static let maxNameLength = 10
 
     var body: some View {
         let count = app.selectedPlayers.count
@@ -60,30 +63,65 @@ struct PlayerSelectView: View {
             }
             .padding(.top, 12)
         } actions: {
-            HStack(spacing: 8) {
-                TextField("新しいプレイヤーの名前", text: $newName)
-                    .font(Theme.font(16))
-                    .foregroundStyle(Theme.ink)
-                    .focused($addFieldFocused)
-                    .submitLabel(.done)
-                    .onSubmit(addPlayer)
-                    .padding(.horizontal, 16)
-                    .frame(height: 52)
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Theme.card))
-                Button(action: addPlayer) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 18, weight: .bold))
+            // ＋を押して初めて入力欄が現れ、1人追加すると入力欄は+ボタンに戻る。
+            // 何も追加せずキーボードを閉じても（他をタップ）+ボタンに戻る。
+            if adding {
+                HStack(spacing: 8) {
+                    TextField("新しいプレイヤーの名前", text: $newName)
+                        .font(Theme.font(16))
                         .foregroundStyle(Theme.ink)
-                        .frame(width: 52, height: 52)
-                        .background(Circle().fill(Theme.primary))
+                        .focused($addFieldFocused)
+                        .submitLabel(.done)
+                        .onSubmit(addPlayer)
+                        .padding(.horizontal, 16)
+                        .frame(height: 52)
+                        .background(RoundedRectangle(cornerRadius: 12).fill(Theme.card))
+                    Button(action: addPlayer) {
+                        Image(systemName: "plus")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(Theme.ink)
+                            .frame(width: 52, height: 52)
+                            .background(Circle().fill(Theme.primary))
+                    }
+                    .buttonStyle(.pressable)
+                    .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+            } else {
+                Button {
+                    Haptics.light()
+                    adding = true
+                    addFieldFocused = true
+                } label: {
+                    Label("プレイヤーを追加", systemImage: "plus")
+                        .font(Theme.font(16))
+                        .foregroundStyle(Theme.chalk)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 52)
+                        .background(Capsule().strokeBorder(Theme.chalkFaded, lineWidth: 1.5))
                 }
                 .buttonStyle(.pressable)
-                .disabled(newName.trimmingCharacters(in: .whitespaces).isEmpty)
             }
-            ChalkButton(title: count >= 3 ? "\(count)人で遊ぶ — 設定へ" : "3人以上えらんでください",
-                        enabled: (3...8).contains(count)) {
-                path.append(HomeRoute.setup)
+            // 入力中は「遊ぶ」を隠す（キーボード直上での誤タップを防ぐ）
+            if !adding {
+                ChalkButton(title: count >= 3 ? "\(count)人で遊ぶ" : "3人以上えらんでください",
+                            enabled: (3...8).contains(count)) {
+                    path.append(HomeRoute.setup)
+                }
             }
+        }
+        .onChange(of: addFieldFocused) { _, focused in
+            // キーボードが閉じたら入力欄を畳んで＋ボタンに戻す
+            if !focused {
+                adding = false
+                newName = ""
+            }
+        }
+        // 名前は最大10文字（追加・名前変更とも）
+        .onChange(of: newName) { _, v in
+            if v.count > Self.maxNameLength { newName = String(v.prefix(Self.maxNameLength)) }
+        }
+        .onChange(of: renameText) { _, v in
+            if v.count > Self.maxNameLength { renameText = String(v.prefix(Self.maxNameLength)) }
         }
         .alert("名前を変更", isPresented: Binding(
             get: { renameTarget != nil },
@@ -106,8 +144,8 @@ struct PlayerSelectView: View {
         Haptics.light()
         app.addPlayer(name: trimmed)
         newName = ""
-        addFieldFocused = false          // キーボードを閉じる
         scrollTarget = app.roster.last?.id  // 追加した行までスクロール
+        addFieldFocused = false  // 1人追加したら閉じる（onChangeで入力欄を畳む）
     }
 
     @ViewBuilder
