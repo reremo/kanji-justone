@@ -102,11 +102,17 @@ struct GameSetupView: View {
                     .font(Theme.font(16))
                     .foregroundStyle(Theme.inkSecondary)
             }
-            Text(app.selectedPlayers.map(\.name).joined(separator: "　"))
-                .font(Theme.font(13))
-                .foregroundStyle(Theme.inkSecondary)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            // 名前ごとに独立させ、名前の途中では改行させない（折り返しは名前間のみ）
+            FlowLayout(spacing: 14, lineSpacing: 4) {
+                ForEach(app.selectedPlayers) { player in
+                    Text(player.name)
+                        .font(Theme.font(13))
+                        .foregroundStyle(Theme.inkSecondary)
+                        .lineLimit(1)
+                        .fixedSize()
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
