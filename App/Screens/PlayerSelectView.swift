@@ -99,9 +99,12 @@ struct PlayerSelectView: View {
                 }
                 .buttonStyle(.pressable)
             }
-            ChalkButton(title: count >= 3 ? "\(count)人で遊ぶ" : "3人以上えらんでください",
-                        enabled: (3...8).contains(count)) {
-                path.append(HomeRoute.setup)
+            // 入力中は「遊ぶ」を隠す（キーボード直上での誤タップを防ぐ）
+            if !adding {
+                ChalkButton(title: count >= 3 ? "\(count)人で遊ぶ" : "3人以上えらんでください",
+                            enabled: (3...8).contains(count)) {
+                    path.append(HomeRoute.setup)
+                }
             }
         }
         .onChange(of: addFieldFocused) { _, focused in
