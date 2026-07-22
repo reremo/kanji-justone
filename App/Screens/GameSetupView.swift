@@ -12,6 +12,7 @@ struct GameSetupView: View {
         NavScreen(title: "ゲーム設定") {
             ScrollView {
                 VStack(spacing: 12) {
+                    participantsCard
                     roundsRow
                     charsRow
                     segmentCard(label: "お題") {
@@ -85,6 +86,35 @@ struct GameSetupView: View {
     private var fixedAnswererID: Player.ID? {
         if case .fixed(let id) = app.answererMode { return id }
         return nil
+    }
+
+    /// 参加者：人数を主役に大きく、名前は小さく添える（表示専用）
+    private var participantsCard: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("参加者")
+                .font(Theme.font(15))
+                .foregroundStyle(Theme.ink)
+            HStack(alignment: .firstTextBaseline, spacing: 3) {
+                Text("\(app.selectedPlayers.count)")
+                    .font(.system(size: 40, weight: .bold, design: .rounded))
+                    .foregroundStyle(Theme.ink)
+                Text("人")
+                    .font(Theme.font(16))
+                    .foregroundStyle(Theme.inkSecondary)
+            }
+            Text(app.selectedPlayers.map(\.name).joined(separator: "　"))
+                .font(Theme.font(13))
+                .foregroundStyle(Theme.inkSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Theme.card)
+                .shadow(color: Theme.tileShadow, radius: 0, x: 0, y: 2)
+        )
     }
 
     /// 固定モードで回答者にする人を参加者から選ぶチップ
