@@ -25,7 +25,7 @@ struct GameSetupView: View {
                             }
                         }
                         if !app.useCustomTopics {
-                            Text("難しさ（ラウンドごと）")
+                            Text("難しさ")
                                 .font(Theme.font(13))
                                 .foregroundStyle(Theme.inkSecondary)
                             segment(items: [("やさしい", app.difficulty == .easy, false),
@@ -126,8 +126,8 @@ struct GameSetupView: View {
     /// 固定モードで回答者にする人を参加者から選ぶチップ
     @ViewBuilder
     private var answererChips: some View {
-        let columns = [GridItem(.adaptive(minimum: 88), spacing: 8, alignment: .leading)]
-        LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+        // 名前を省略せず全表示。チップは内容幅で、名前間だけで折り返す
+        FlowLayout(spacing: 8, lineSpacing: 8) {
             ForEach(app.selectedPlayers) { player in
                 let selected = fixedAnswererID == player.id
                 Button {
@@ -136,10 +136,9 @@ struct GameSetupView: View {
                     Text(player.name)
                         .font(Theme.font(15))
                         .foregroundStyle(selected ? Theme.ink : Theme.inkSecondary)
-                        .lineLimit(1)
+                        .fixedSize()
                         .padding(.vertical, 8)
                         .padding(.horizontal, 14)
-                        .frame(maxWidth: .infinity)
                         .background(
                             Capsule().fill(selected ? Theme.primary : Theme.tileDeletedBg)
                         )
@@ -147,6 +146,7 @@ struct GameSetupView: View {
                 .buttonStyle(.pressable)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // ラウンド数（無料は上限2に達した「＋」に🔒、有料は上限10で通常グレー）
@@ -183,26 +183,34 @@ struct GameSetupView: View {
         }
     }
 
-    // 下部にまとめたプレミア導線（未購入時のみ）
+    // 下部にまとめたプレミア導線（未購入時のみ）。金の薄塗り＋枠で短く目立たせる。
     private var premiumLink: some View {
         Button {
             path.append(HomeRoute.shop)
         } label: {
             HStack(spacing: 8) {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 14))
-                Text("ラウンド数や文字数を増やすには 買い切りで解除")
-                    .font(Theme.font(13))
-                    .multilineTextAlignment(.leading)
+                Image(systemName: "crown.fill")
+                    .font(.system(size: 15))
+                    .foregroundStyle(Theme.primary)
+                Text("買い切りで全解除")
+                    .font(Theme.font(15))
+                    .foregroundStyle(Theme.chalk)
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 12))
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(Theme.primary)
             }
-            .foregroundStyle(Theme.chalk)
-            .padding(.vertical, 12)
+            .padding(.vertical, 14)
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Capsule().strokeBorder(Theme.primary, lineWidth: 1.5))
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Theme.primary.opacity(0.14))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14)
+                            .strokeBorder(Theme.primary, lineWidth: 1.5)
+                    )
+            )
         }
         .buttonStyle(.pressable)
     }
@@ -231,18 +239,24 @@ struct GameSetupView: View {
     /// ステッパーの −／＋ ボタン。locked時はアイコン右上に🔒を重ねて操作不可
     private func stepButton(icon: String, tint: Color, enabled: Bool, locked: Bool,
                             action: @escaping () -> Void) -> some View {
-        Button(action: action) {
+        Button {
+            Haptics.light()   // 押してる感（触覚）。無効ボタンでは発火しない
+            action()
+        } label: {
             ZStack(alignment: .topTrailing) {
                 Image(systemName: icon)
                     .font(.system(size: 26))
                     .foregroundStyle(enabled ? tint : Theme.inkDisabled)
+                    .opacity(locked ? 0.6 : 1)   // ロックは押せない感を強める
                 if locked {
-                    Image(systemName: "lock.fill")
-                        .font(.system(size: 10))
-                        .foregroundStyle(Theme.ink)
-                        .padding(2)
-                        .background(Circle().fill(Theme.primary))
-                        .offset(x: 5, y: -5)
+                    // 鍵ではなく王冠でプレミア感を出す
+                    Image(systemName: "crown.fill")
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(Theme.chalk)
+                        .padding(3)
+                        .background(Circle().fill(Theme.primaryDark))
+                        .shadow(color: Theme.tileShadow.opacity(0.4), radius: 1, x: 0, y: 1)
+                        .offset(x: 7, y: -7)
                 }
             }
         }
@@ -276,7 +290,9 @@ struct GameSetupView: View {
                 } label: {
                     HStack(spacing: 4) {
                         if item.2 {
-                            Image(systemName: "lock.fill").font(.system(size: 11))
+                            Image(systemName: "crown.fill")
+                                .font(.system(size: 11))
+                                .foregroundStyle(Theme.primaryDark)
                         }
                         Text(item.0).font(Theme.font(14))
                     }
