@@ -41,6 +41,8 @@ struct JudgeView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         .onTapGesture { start() }
+        // 画面遷移で導入（アイコン等）がスライド／フェードして見えないよう、挿入アニメを無効化＝固定表示
+        .transaction { $0.animation = nil }
     }
 
     // MARK: - 演出（お題 → 回答 → 判定）
@@ -93,7 +95,7 @@ struct JudgeView: View {
                     session.update { $0.judgeCorrect() }
                 }
                 ChalkButton(title: "不正解", style: .outline) {
-                    session.update { $0.judgeWrong() }
+                    session.update { $0.judgeGiveUp() }
                 }
             }
             .padding(.horizontal, 16)

@@ -338,7 +338,10 @@ public struct GameEngine {
 
     private mutating func resolve(outcome: TurnOutcome) {
         switch outcome {
-        case .giveUp, .wipeout:
+        case .giveUp:
+            // 不正解でも「少ないヒントで削られた分」のボーナスは回答者に入る（出題者は0点）
+            applyGiveUpScores()
+        case .wipeout:
             applyZeroScores()
         case .correct:
             applyCorrectScores()
@@ -351,6 +354,14 @@ public struct GameEngine {
         for p in config.players { last[p.id] = 0 }
         lastTurnScores = last
         // totalScores は加算0で変化なし
+    }
+
+    private mutating func applyGiveUpScores() {
+        var last: [Player.ID: Int] = [:]
+        for p in config.players { last[p.id] = 0 }
+        last[answerer.id] = deletedCount   // 回答者のみ削除数ボーナス
+        lastTurnScores = last
+        for p in config.players { totalScores[p.id, default: 0] += last[p.id]! }
     }
 
     private mutating func applyCorrectScores() {
