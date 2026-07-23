@@ -30,6 +30,7 @@ enum Theme {
     // セマンティック
     static let success = Color(hex: 0x2E9E5B)
     static let error = Color(hex: 0xE23D3D)
+    static let seal = Color(hex: 0xC02A2A)           // 朱印（没・重複スタンプ）
 
     // 漢字カード
     static let tileBorder = Color(hex: 0xE6DFCE)

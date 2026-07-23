@@ -54,15 +54,57 @@ public struct GameEngine {
             }
             groups[f.ownerID]?.append(f)
         }
-        let arr = order.map { groups[$0]! }
         let s = combinedSeed(seed, UInt64(roundNumber), UInt64(turnNumber) &+ 0x1111)
+        // グループ内の文字順も決定的にシャッフルし、提出順から誰が何を出したか読めないようにする
+        let arr = order.enumerated().map { i, owner in
+            groups[owner]!.deterministicShuffled(seed: combinedSeed(s, UInt64(i), 0x3333))
+        }
         return arr.deterministicShuffled(seed: s)
+    }
+
+    /// ヒント確認用の表示グループ（人物単位・匿名）。
+    /// tiles は生存＋手動削除（没）の札で、状態変化しても順序は不変。duplicateCount は自動重複削除の枚数。
+    public struct ConfirmGroup: Identifiable, Sendable {
+        public let id: Player.ID       // オーナーID（匿名だが安定した識別子）
+        public let tiles: [CharFate]   // 表示する札（survived / manualDeleted）
+        public let duplicateCount: Int // 自動重複削除された枚数（重複スタンプで表示）
+    }
+
+    /// 人物単位でグルーピングし決定的シャッフルしたヒント確認用グループ。
+    /// - tiles: survived + manualDeleted（没を押しても復活できるよう手動削除も残す）
+    /// - duplicateCount: autoDeleted の枚数（重複スタンプ）
+    public var confirmDisplayGroups: [ConfirmGroup] {
+        var order: [Player.ID] = []
+        var tiles: [Player.ID: [CharFate]] = [:]
+        var dups: [Player.ID: Int] = [:]
+        for f in fates {
+            if !order.contains(f.ownerID) { order.append(f.ownerID) }
+            switch f.state {
+            case .survived, .manualDeleted:
+                tiles[f.ownerID, default: []].append(f)
+            case .autoDeleted:
+                dups[f.ownerID, default: 0] += 1
+            }
+        }
+        let s = combinedSeed(seed, UInt64(roundNumber), UInt64(turnNumber) &+ 0x1111)
+        let groups = order.enumerated().map { i, owner -> ConfirmGroup in
+            let t = (tiles[owner] ?? []).deterministicShuffled(seed: combinedSeed(s, UInt64(i), 0x3333))
+            return ConfirmGroup(id: owner, tiles: t, duplicateCount: dups[owner] ?? 0)
+        }
+        return groups.deterministicShuffled(seed: s)
     }
 
     /// 回答用: 生存文字をフラットに決定的シャッフルした配列
     public var flatSurvivors: [CharFate] {
         let s = combinedSeed(seed, UInt64(roundNumber), UInt64(turnNumber) &+ 0x2222)
         return survivors.deterministicShuffled(seed: s)
+    }
+
+    /// 回答用: 削除された文字（自動=重複／手動=没）をフラットに決定的シャッフルした配列。
+    /// 文字自体はUI側で伏せる（重複/没の別だけ見せる）。
+    public var flatDeleted: [CharFate] {
+        let s = combinedSeed(seed, UInt64(roundNumber), UInt64(turnNumber) &+ 0x4444)
+        return fates.filter { $0.state != .survived }.deterministicShuffled(seed: s)
     }
 
     // MARK: - 内部状態
@@ -163,9 +205,25 @@ public struct GameEngine {
         }
     }
 
+    /// 没スタンプのトグル: survived ↔ manualDeleted を切り替える（autoDeleted は対象外）。
+    /// 全滅判定は行わず、確認完了時（finishHintConfirm）にまとめて評価する。
+    public mutating func toggleManualDelete(fateID: UUID) {
+        guard phase == .hintConfirm else { return }
+        guard let idx = fates.firstIndex(where: { $0.id == fateID }) else { return }
+        switch fates[idx].state {
+        case .survived:      fates[idx].state = .manualDeleted
+        case .manualDeleted: fates[idx].state = .survived
+        case .autoDeleted:   break
+        }
+    }
+
     public mutating func finishHintConfirm() {
         guard phase == .hintConfirm else { return }
-        phase = .answerHandoff
+        if survivors.isEmpty {
+            resolve(outcome: .wipeout)
+        } else {
+            phase = .answerHandoff
+        }
     }
 
     public mutating func answererReceived() {

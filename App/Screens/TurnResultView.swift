@@ -54,7 +54,8 @@ struct TurnResultView: View {
             Haptics.warning()
             SoundPlayer.play(.wrong)
         case .wipeout:
-            Haptics.heavy()
+            // 全滅：下降する残念トロンボーン＋崩れ落ちる震動
+            Haptics.error()
             SoundPlayer.play(.wipeout)
         }
         if reduceMotion {
@@ -63,9 +64,12 @@ struct TurnResultView: View {
         }
         withAnimation(.spring(duration: 0.5, bounce: 0.5)) { celebrated = true }
         if outcome == .wipeout {
-            for x in [-10, 10, -7, 7, -3, 0] as [CGFloat] {
+            // 音の下降に合わせて力が抜けるように、序盤だけ大きく揺れて減衰
+            let swings: [CGFloat] = [-14, 14, -11, 11, -7, 7, -4, 4, -2, 0]
+            for (i, x) in swings.enumerated() {
                 withAnimation(.linear(duration: 0.05)) { shakeX = x }
-                try? await Task.sleep(for: .milliseconds(55))
+                if i == 0 { Haptics.heavy() }
+                try? await Task.sleep(for: .milliseconds(56))
             }
         }
     }

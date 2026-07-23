@@ -186,6 +186,31 @@ final class AppState {
         pendingTurns = []
     }
 
+    #if DEBUG
+    /// テスト用: 4人・2文字でヒント確認フェーズまで一気に進める（重複1組を含む）
+    func startDebugHintConfirm() {
+        let players = (1...4).map { Player(name: "P\($0)") }
+        let topics = builtinTopics.isEmpty
+            ? [Topic(id: "dbg", text: "満員電車", furigana: "まんいんでんしゃ", difficulty: .easy)]
+            : builtinTopics
+        guard let config = try? GameConfig(players: players, rounds: 1, charsPerPlayer: 2,
+                                           answererMode: .sequential) else { return }
+        let session = GameSession(config: config, topics: topics)
+        session.update { e in
+            e.proceedFromAnswererReveal()
+            e.confirmAnswererNotLooking()
+            e.finishTopicViewing()
+            let hints: [[Character]] = [["山", "川"], ["風", "山"], ["海", "森"]] // 山が重複
+            for chars in hints {
+                e.confirmHintPerson()
+                _ = e.submitHint(chars: chars)
+            }
+        }
+        pendingTurns = []
+        gameSession = session
+    }
+    #endif
+
     // MARK: - 中断・再開
 
     /// 進行を保持したままホームへ戻る
