@@ -7,10 +7,9 @@ struct HintHandoffView: View {
     var body: some View {
         let name = session.engine.currentHintGiver?.name ?? ""
         HandoffGateView(
-            phaseLabel: "ヒントを書く",
-            lead: "\(name)に 渡してください",
+            icon: "hand.raised.fill",
+            lead: "\(name)がヒントを入力してください",
             headline: "\(name)ですか？",
-            note: "本人だけが「はい」を押してください",
             buttonTitle: "はい、\(name)です"
         ) {
             session.update { $0.confirmHintPerson() }
