@@ -5,10 +5,27 @@ import KanjiCore
 struct RankingView: View {
     @Environment(GameSession.self) private var session
     @State private var order: [CharFate] = []
+    @State private var gatePassed = false
 
     var body: some View {
+        if gatePassed {
+            rankingScreen
+        } else {
+            let name = session.engine.answerer.name
+            HandoffGateView(
+                icon: "iphone.gen3",
+                lead: "採点は回答者がします。\(name)さんに渡してください",
+                headline: "\(name)さんですか？",
+                buttonTitle: "はい、\(name)です"
+            ) {
+                gatePassed = true
+            }
+        }
+    }
+
+    private var rankingScreen: some View {
         let engine = session.engine
-        ChalkScreen(progress: session.progressLine, title: "役に立った順に並べる") {
+        return ChalkScreen(progress: session.progressLine, title: "役に立った順に並べる") {
             VStack(alignment: .leading, spacing: 8) {
                 Text("\(engine.answerer.name)さんが「役に立った順」に並べます（ドラッグで入れかえ）")
                     .font(Theme.font(14))
