@@ -45,6 +45,11 @@ struct HomeView: View {
                     navButton("遊び方", icon: "questionmark.circle") { path.append(HomeRoute.howTo) }
                     navButton("設定", icon: "gearshape") { path.append(HomeRoute.appSettings) }
                 }
+                #if DEBUG
+                navRow {
+                    navButton("DEBUG: ヒント確認へ", icon: "ladybug") { app.startDebugHintConfirm() }
+                }
+                #endif
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)

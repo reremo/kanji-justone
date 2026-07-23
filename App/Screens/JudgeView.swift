@@ -1,78 +1,128 @@
 import SwiftUI
 import KanjiCore
 
-/// S11 答え合わせ（正解／不正解／ギブアップ）
+/// S11 答え合わせ。真緑の全画面 → タップで お題 → 遅れて回答 → 落ち着いたら判定ボタン、と順に立ち上げる。
 struct JudgeView: View {
     @Environment(GameSession.self) private var session
-    @State private var revealed = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    @State private var started = false
+    @State private var showTopic = false
+    @State private var showAnswer = false
+    @State private var showButtons = false
 
     var body: some View {
         let engine = session.engine
-        ChalkScreen(progress: session.progressLine, title: "答え合わせ") {
-            VStack(spacing: 16) {
-                card(label: "\(engine.answerer.name)さんの回答") {
-                    Text(engine.answerText ?? "")
-                        .font(Theme.font(32))
-                        .foregroundStyle(Theme.ink)
-                }
-                if revealed {
-                    card(label: "お題", highlighted: true) {
-                        if let topic = engine.topic {
-                            RubyText(text: topic.text, furigana: topic.furigana, size: 38)
-                        }
-                    }
-                } else {
-                    // 回答者の手元でお題が見えないよう、出題者が受け取ってからタップで表示する
-                    card(label: "お題", highlighted: true) {
-                        VStack(spacing: 8) {
-                            Image(systemName: "hand.tap")
-                                .font(.system(size: 28))
-                                .foregroundStyle(Theme.inkSecondary)
-                            Text("ヒントを出した人が受け取ったら\nタップして表示")
-                                .font(Theme.font(14))
-                                .foregroundStyle(Theme.inkSecondary)
-                                .multilineTextAlignment(.center)
-                        }
-                    }
-                    .onTapGesture { revealed = true }
-                }
-                Text("ヒントを出したみんなで 判定してください")
-                    .font(Theme.font(14))
-                    .foregroundStyle(Theme.chalkFaded)
-            }
-            .padding(.horizontal, 16)
-            .frame(maxHeight: .infinity)
-        } actions: {
-            ChalkButton(title: "正解！") {
-                session.update { $0.judgeCorrect() }
-            }
-            ChalkButton(title: "不正解 — もう一度答える", style: .outline) {
-                session.update { $0.judgeWrong() }
-            }
-            ChalkButton(title: "ギブアップ（全員0点）", style: .warnOutline) {
-                session.update { $0.judgeGiveUp() }
+        ZStack {
+            Theme.board.ignoresSafeArea()
+
+            if started {
+                revealStage(engine: engine)
+            } else {
+                intro
             }
         }
     }
 
-    @ViewBuilder
-    private func card(label: String, highlighted: Bool = false, @ViewBuilder content: () -> some View) -> some View {
-        VStack(spacing: 8) {
-            Text(label)
-                .font(Theme.font(13))
-                .foregroundStyle(Theme.inkSecondary)
-            content()
+    // MARK: - 導入（真緑・タップ待ち）
+
+    private var intro: some View {
+        VStack(spacing: 16) {
+            Text("答え合わせ")
+                .font(Theme.font(34))
+                .foregroundStyle(Theme.chalk)
+            Image(systemName: "hand.tap.fill")
+                .font(.system(size: 34))
+                .foregroundStyle(Theme.primary)
+            Text("タップしてめくる")
+                .font(Theme.font(15))
+                .foregroundStyle(Theme.chalkDim)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Theme.card)
-                .shadow(color: Theme.tileShadow, radius: 0, x: 0, y: 3)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .strokeBorder(highlighted ? Theme.primary : .clear, lineWidth: 2.5)
-        )
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .contentShape(Rectangle())
+        .onTapGesture { start() }
+    }
+
+    // MARK: - 演出（お題 → 回答 → 判定）
+
+    private func revealStage(engine: GameEngine) -> some View {
+        VStack(spacing: 0) {
+            Spacer(minLength: 0)
+
+            // お題（主役）
+            VStack(spacing: 10) {
+                Text("お題")
+                    .font(Theme.font(14))
+                    .foregroundStyle(Theme.chalkDim)
+                Text(engine.topic?.text ?? "")
+                    .font(Theme.font(48))
+                    .foregroundStyle(Theme.chalk)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.4)
+                    .shadow(color: Theme.primary.opacity(showTopic ? 0.35 : 0), radius: 18)
+            }
+            .padding(.horizontal, 24)
+            .opacity(showTopic ? 1 : 0)
+            .scaleEffect(showTopic ? 1 : 0.82)
+
+            // 回答者の答え（遅れて・小さめ）
+            VStack(spacing: 6) {
+                Text("\(engine.answerer.name)さんの回答")
+                    .font(Theme.font(13))
+                    .foregroundStyle(Theme.chalkDim)
+                Text(engine.answerText ?? "")
+                    .font(Theme.font(28))
+                    .foregroundStyle(Theme.chalkFaded)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.4)
+            }
+            .padding(.top, 34)
+            .padding(.horizontal, 24)
+            .opacity(showAnswer ? 1 : 0)
+            .offset(y: showAnswer ? 0 : 14)
+
+            Spacer(minLength: 0)
+
+            // 判定ボタン（落ち着いてから）
+            VStack(spacing: 10) {
+                Text("ヒントを出したみんなで 判定してください")
+                    .font(Theme.font(13))
+                    .foregroundStyle(Theme.chalkFaded)
+                    .padding(.bottom, 2)
+                ChalkButton(title: "正解！") {
+                    session.update { $0.judgeCorrect() }
+                }
+                ChalkButton(title: "不正解", style: .outline) {
+                    session.update { $0.judgeWrong() }
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 12)
+            .opacity(showButtons ? 1 : 0)
+            .offset(y: showButtons ? 0 : 18)
+            .allowsHitTesting(showButtons)
+        }
+    }
+
+    // MARK: - シーケンス
+
+    private func start() {
+        started = true
+        Haptics.light()
+        SoundPlayer.play(.tap)
+
+        if reduceMotion {
+            showTopic = true; showAnswer = true; showButtons = true
+            return
+        }
+
+        Task {
+            withAnimation(.spring(duration: 0.55, bounce: 0.42)) { showTopic = true }
+            try? await Task.sleep(for: .milliseconds(850))
+            Haptics.light()
+            withAnimation(.easeOut(duration: 0.45)) { showAnswer = true }
+            try? await Task.sleep(for: .milliseconds(750))
+            withAnimation(.easeOut(duration: 0.4)) { showButtons = true }
+        }
     }
 }
