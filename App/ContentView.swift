@@ -23,7 +23,11 @@ struct ContentView: View {
             case .finalResult: FinalResultView()
             }
         }
-        .animation(.easeInOut(duration: 0.25), value: session.engine.phase)
+        // フェーズごとに identity を分けてクロスフェードにする（要素がスライド／モーフして
+        // 見えるのを防ぎ、各画面のアイコン等は固定のまま切り替わる）
+        .id(String(describing: session.engine.phase))
+        .transition(.opacity)
+        .animation(.easeInOut(duration: 0.25), value: String(describing: session.engine.phase))
         .overlay(alignment: .topTrailing) {
             Button {
                 showPause = true

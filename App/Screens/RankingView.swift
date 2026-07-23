@@ -14,7 +14,7 @@ struct RankingView: View {
             let name = session.engine.answerer.name
             HandoffGateView(
                 icon: "iphone.gen3",
-                lead: "採点は回答者がします。\(name)さんに渡してください",
+                lead: "ヒントの順位付けを行います。\(name)さんに渡してください",
                 headline: "\(name)さんですか？",
                 buttonTitle: "はい、\(name)です"
             ) {
@@ -25,12 +25,12 @@ struct RankingView: View {
 
     private var rankingScreen: some View {
         let engine = session.engine
-        return ChalkScreen(progress: session.progressLine, title: "役に立った順に並べる") {
+        return ChalkScreen(progress: session.progressLine, title: "ヒントになった順に並べる") {
             VStack(alignment: .leading, spacing: 8) {
-                Text("\(engine.answerer.name)さんが「役に立った順」に並べます（ドラッグで入れかえ）")
-                    .font(Theme.font(14))
-                    .foregroundStyle(Theme.chalkFaded)
-                    .padding(.horizontal, 16)
+                if let topic = engine.topic {
+                    TopicRow(topic: topic)
+                        .padding(.horizontal, 16)
+                }
                 List {
                     ForEach(Array(order.enumerated()), id: \.element.id) { index, fate in
                         HStack(spacing: 14) {
